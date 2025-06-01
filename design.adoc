@@ -1,0 +1,185 @@
+= SPEC-1: F1 Dashboard MVP
+:sectnums:
+:toc:
+:plantuml-server-url: http://www.plantuml.com/plantuml
+:source-highlighter: highlight.js
+
+
+== Background
+
+This project aims to build a lightweight F1 dashboard using Next.js and free-tier services. It pulls data from public APIs like Ergast (f1.dev) and OpenF1 to show race schedules, standings, and live race telemetry. The key driver is to avoid recurring costs by leveraging free hosting, caching, and API options.
+
+== Requirements
+
+*Must Have*
+
+* Fetch and display current F1 season's race calendar.
+* Display current driver standings.
+* Display current constructor/team standings.
+* Show historical seasonal data (e.g., previous years).
+* Implement caching layer for API responses to improve performance and reliability.
+
+*Should Have*
+
+* Real-time data updates for live races (within limits of source API).
+* User-friendly frontend with data visualization (charts, tables, timelines).
+
+*Could Have*
+
+* Filters by team, driver, or circuit.
+* Mobile responsive layout.
+* Dark/light mode toggle.
+
+*Won’t Have (for MVP)*
+
+* User accounts or personalization.
+* Fantasy league or predictions.
+
+== Method
+
+The system is built using a modular architecture centered around a Next.js application. The frontend handles both server-side rendering and client-side interactivity. API requests from the frontend hit Next.js API routes, which implement a caching-first strategy to retrieve F1 data from third-party sources. Redis is used as the caching layer to reduce redundant API calls and improve latency.
+
+External APIs provide data for race schedules, results, standings, and live telemetry when available. Cached data is time-bounded based on the type of content (e.g., standings cached longer, live data shorter).
+
+Key Components:
+
+* **Next.js frontend**: Renders dashboard views and handles client interaction.
+* **API layer**: Built using Next.js API routes, responsible for calling external APIs and managing cache.
+* **Redis**: Caching layer to store API responses temporarily.
+* **External APIs**: Ergast, F1 Data API (f1.dev), and OpenF1 as data sources.
+
+
+[plantuml]
+....
+@startuml
+actor User
+User --> WebApp : Requests dashboard
+
+node "Next.js App" {
+component "Pages (SSR/CSR)" as Pages
+component "API Routes" as APIRoutes
+Pages --> APIRoutes : Fetch data
+}
+
+node "Caching Layer (Redis)" as Redis
+APIRoutes --> Redis : Check/Store cached responses
+
+cloud "External F1 APIs" as ExternalAPIs
+APIRoutes --> ExternalAPIs : Fetch data (if cache miss)
+
+User --> Pages : View dashboards
+@enduml
+....
+
+== Implementation
+
+=== 1. Project Setup
+
+* Initialize a Next.js project with TypeScript support:
+  npx create-next-app\@latest f1-dashboard --typescript
+* Install dependencies:
+  npm install ioredis axios swr
+
+=== 2. Set Up Redis
+
+* Use Upstash or Redis Cloud for a managed Redis instance.
+* Store the Redis URL in an `.env` file:
+  REDIS\_URL=redis\://:<password>@<host>:<port>
+
+=== 3. API Routes
+
+* Implement API routes in `/pages/api`, each with:
+
+  * Cache check
+  * Fetch from external API if needed
+  * Normalize and return response
+
+=== 4. Frontend Pages
+
+* Use SWR for fetching and caching on client
+* Build pages:
+
+  * `/` – Overview
+  * `/calendar` – Race calendar
+  * `/standings` – Driver & team standings
+  * `/live/[round]` – Live race page
+
+=== 5. Normalize Responses
+
+* Create `lib/normalize.ts` with mapping logic from raw API to internal schema
+
+== Milestones
+
+1. **Project Scaffold & Setup**
+
+   * [ ] Initialize Next.js app with TypeScript.
+   * [ ] Install and configure Redis (e.g., Upstash).
+   * [ ] Set up environment configuration for external APIs and Redis.
+
+2. **API Integration Layer**
+
+   * [ ] Implement Redis cache wrapper (`lib/redis.ts`).
+   * [ ] Create base Axios client with fallback handling.
+   * [ ] Normalize data structures from Ergast and OpenF1.
+
+3. **Calendar & Standings**
+
+   * [ ] Implement `/api/calendar` and render calendar page.
+   * [ ] Implement `/api/standings/drivers` and `/api/standings/teams`.
+   * [ ] Display driver/team standings using charts or tables.
+
+4. **Historical Season Viewer**
+
+   * [ ] Create `/api/history/[season]` endpoint.
+   * [ ] Render season selector and past results.
+
+5. **Live Race Page**
+
+   * [ ] Integrate OpenF1 telemetry via `/api/live/[round]`.
+   * [ ] Display live timing and basic telemetry updates.
+
+6. **Frontend Polish**
+
+   * [ ] Apply responsive UI design.
+   * [ ] Improve UX with loading states and error handling.
+   * [ ] Add theme toggle and layout cleanup.
+
+7. **Testing & Deployment**
+
+   * [ ] Add basic unit tests for API normalization.
+   * [ ] Deploy to Vercel with environment variables.
+   * [ ] Set up monitoring (e.g., logging API errors).
+
+== Gathering Results
+
+To evaluate the success and functionality of the MVP, the following criteria and methods will be used:
+
+=== Functional Validation
+
+* ✅ Race calendar correctly loads from `/api/calendar`.
+* ✅ Driver and constructor standings update correctly.
+* ✅ Historical season data renders when a past year is selected.
+* ✅ Live data updates from OpenF1 API.
+* ✅ Redis cache hits verified via logging.
+
+=== Performance Metrics
+
+* ⏱ API response time under 300ms on cache hit.
+* 🚦 No API rate limits encountered.
+* 🧪 Pages load within 1s on local and Vercel.
+
+=== Cost & Infrastructure Review
+
+* Vercel bandwidth < 100GB/month
+* Upstash cache ops < 10k/day
+* No recurring costs incurred
+
+=== User Feedback
+
+* Collect informal feedback on data clarity and UX.
+
+=== Success Criteria
+
+* All "Must Have" features work
+* Free-tier compliant
+* Stable and responsive performance
