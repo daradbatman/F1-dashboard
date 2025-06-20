@@ -1,4 +1,6 @@
 import { 
+    ChampionshipStandingResponse,
+    ConstructorStandingResponse,
     DriverDetailResponse, 
     DriversResponse, 
     TeamDriversResponse, 
@@ -26,6 +28,16 @@ export class F1Service {
 
     async getCurrentTeamsDrivers(teamId: string): Promise<TeamDriversResponse> {
         const response = await fetch(`${BASE_URL}/${currentYear}/teams/${teamId}/drivers`);
+        return response.json();
+    }
+
+    async getCurrentDriverStandings(): Promise<ChampionshipStandingResponse> {
+        const response = await fetch(`${BASE_URL}/${currentYear}/drivers-championship`);
+        return response.json();
+    }
+
+    async getCurrentConstructorStandings(): Promise<ConstructorStandingResponse> {
+        const response = await fetch(`${BASE_URL}/${currentYear}/constructors-championship`);
         return response.json();
     }
 }

@@ -44,6 +44,7 @@ export interface Driver {
     number: number;
     shortName: string;
     url: string;
+    teamId: string;
     points?: number;
     position?: number;
     wins?: number;
