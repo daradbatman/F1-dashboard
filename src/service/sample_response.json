@@ -1,0 +1,74 @@
+{
+  "api": "https://f1api.dev",
+  "url": "https://f1api.devapi/current/last",
+  "total": 1,
+  "season": 2025,
+  "round": 11,
+  "championship": {
+    "championshipId": "f1_2025",
+    "championshipName": "2025 Formula 1 World Championship",
+    "url": "https://en.wikipedia.org/wiki/2025_Formula_One_World_Championship",
+    "year": 2025
+  },
+  "race": [
+    {
+      "raceId": "austrian_2025",
+      "championshipId": "f1_2025",
+      "raceName": "MSC Cruises Austrian Grand Prix 2025",
+      "schedule": {
+        "race": {
+          "date": "2025-06-29",
+          "time": "13:00:00Z"
+        },
+        "qualy": {
+          "date": "2025-06-28",
+          "time": "14:00:00Z"
+        },
+        "fp1": {
+          "date": "2025-06-27",
+          "time": "11:30:00Z"
+        },
+        "fp2": {
+          "date": "2025-06-27",
+          "time": "15:00:00Z"
+        },
+        "fp3": {
+          "date": "2025-06-28",
+          "time": "10:30:00Z"
+        },
+        "sprintQualy": {
+          "date": null,
+          "time": null
+        },
+        "sprintRace": {
+          "date": null,
+          "time": null
+        }
+      },
+      "laps": 71,
+      "round": 11,
+      "url": "https://en.wikipedia.org/wiki/2025_Austrian_Grand_Prix",
+      "fast_lap": {
+        "fast_lap": null,
+        "fast_lap_driver_id": null,
+        "fast_lap_team_id": null
+      },
+      "circuit": {
+        "circuitId": "red_bull_ring",
+        "circuitName": "Red Bull Ring",
+        "country": "Austria",
+        "city": "Spielberg",
+        "circuitLength": "4318km",
+        "lapRecord": "1:05:619",
+        "firstParticipationYear": 1970,
+        "corners": 10,
+        "fastestLapDriverId": "sainz",
+        "fastestLapTeamId": "mclaren",
+        "fastestLapYear": 2020,
+        "url": "https://en.wikipedia.org/wiki/Red_Bull_Ring"
+      },
+      "winner": null,
+      "teamWinner": null
+    }
+  ]
+}

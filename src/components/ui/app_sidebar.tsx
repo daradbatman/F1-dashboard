@@ -1,12 +1,10 @@
-import Image from "next/image"
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react"
+import { Calendar, Home, Medal, Trophy, } from "lucide-react"
 
 import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -16,13 +14,18 @@ import {
 const items = [
   {
     title: "Home",
-    url: "#",
+    url: "/",
     icon: Home,
   },
   {
     title: "Driver Standings",
-    url: "#",
-    icon: Search,
+    url: "/drivers",
+    icon: Medal,
+  },
+  {
+    title: "Constructor Standings",
+    url: "/constructors",
+    icon: Trophy,
   },
   {
     title: "Race Calendar",
@@ -36,17 +39,6 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>
-            <div className="w-12 h-12 flex items-center justify-center bg-white rounded-full shadow">
-              <Image
-                src="/f1-logo.svg"
-                alt="F1 Logo"
-                width={32}
-                height={32}
-                priority
-              />
-            </div>
-          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (

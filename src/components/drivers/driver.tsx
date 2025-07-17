@@ -22,14 +22,9 @@ export const DriverCard: React.FC<DriverProps> = ({ position, points, wins, driv
     <Card className="w-[350px] hover:shadow-lg transition-shadow">
       <CardHeader>
         <div className="flex items-center gap-4">
-          <div className="relative w-16 h-16 rounded-full overflow-hidden">
-            <Image
-              src={`https://placehold.co/600x400/000000/FFFFFF/png`}
-              alt={`${driver.name} ${driver.surname}`}
-              fill
-              className="object-cover"
-            />
-          </div>
+            <div className="relative w-16 h-16 rounded-full overflow-hidden flex items-center justify-center bg-gray-200">
+              <span className="text-lg font-semibold text-black">{driver.shortName}</span>
+            </div>
           <div>
             <CardTitle>{`${driver.name} ${driver.surname}`}</CardTitle>
             <CardDescription>{driver.nationality}</CardDescription>

@@ -1,5 +1,5 @@
 import { Team } from "@/types/f1-types";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import Image from "next/image";
 
 
