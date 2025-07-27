@@ -155,7 +155,6 @@ export interface FreePracticeResult {
     driverId: string;
     teamId: string;
     time: string;
-    gridPosition: number;
     driver: Driver;
     team: Team;
 }
