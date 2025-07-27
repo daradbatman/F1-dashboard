@@ -134,4 +134,70 @@ export class F1Service {
 
         return response.json();
     }
+
+    async getFp1ResultsByYear(year: number, round: number): Promise<RaceResultsResponse | null> {
+        const response = await fetch(`${BASE_URL}/${year}/${round}/fp1`, {
+            next: { revalidate: 86400}
+        });
+        if (!response.ok) {
+            return null;
+        }
+
+        return response.json();
+    }
+
+    async getFp2ResultsByYear(year: number, round: number): Promise<RaceResultsResponse | null> {
+        const response = await fetch(`${BASE_URL}/${year}/${round}/fp2`, {
+            next: { revalidate: 86400}
+        });
+        if (!response.ok) {
+            return null;
+        }
+
+        return response.json();
+    }
+
+    async getFp3ResultsByYear(year: number, round: number): Promise<RaceResultsResponse | null> {
+        const response = await fetch(`${BASE_URL}/${year}/${round}/fp3`, {
+            next: { revalidate: 86400}
+        });
+        if (!response.ok) {
+            return null;
+        }
+
+        return response.json();
+    }
+
+    async getQualyResultsByYear(year: number, round: number): Promise<RaceResultsResponse | null> {
+        const response = await fetch(`${BASE_URL}/${year}/${round}/qualy`, {
+            next: { revalidate: 86400}
+        });
+        if (!response.ok) {
+            return null;
+        }
+
+        return response.json();
+    }
+
+    async getSprintRaceResultsByYear(year: number, round: number): Promise<RaceResultsResponse | null> {
+        const response = await fetch(`${BASE_URL}/${year}/${round}/sprint/race`, {
+            next: { revalidate: 86400}
+        });
+        if (!response.ok) {
+            return null;
+        }
+
+        return response.json();
+    }
+
+    async getSprintQualyResultsByYear(year: number, round: number): Promise<RaceResultsResponse | null> {
+        const response = await fetch(`${BASE_URL}/${year}/${round}/sprint/qualy`, {
+            next: { revalidate: 86400}
+        });
+        if (!response.ok) {
+            return null;
+        }
+
+        return response.json();
+    }
 }

@@ -151,6 +151,15 @@ export interface SeasonCalendarResponse extends BaseApiResponse {
     races: Race[];
 }
 
+export interface FreePracticeResult {
+    driverId: string;
+    teamId: string;
+    time: string;
+    gridPosition: number;
+    driver: Driver;
+    team: Team;
+}
+
 export interface QualifyingResult {
     classificationId: number;
     driverId: string;
@@ -230,6 +239,12 @@ export interface RaceResultsResponse extends BaseApiResponse {
         time: string;
         raceName: string;
         circuit: Circuit;
-        results: RaceResult[];
+        results: RaceResult[] | null;
+        qualyResults: QualifyingResult[] | null;
+        sprintQualyResults: SprintQualifyingResult[] | null;
+        sprintRaceResults: SprintRaceResult[] | null;
+        fp1Results: FreePracticeResult[] | null;
+        fp2Results: FreePracticeResult[] | null;
+        fp3Results: FreePracticeResult[] | null;
     }
 }

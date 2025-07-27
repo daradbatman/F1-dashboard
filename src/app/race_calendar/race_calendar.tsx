@@ -24,7 +24,7 @@ export default async function RaceCalendar() {
                 <div className="grid gap-4">
                     {calendar?.races.map((race) => (
                         <Link href={`/race_calendar/${race.round}`} key={race.round}>
-                            <Card>
+                            <Card className="hover:shadow-lg transition-shadow duration-200 ease-in-out hover:scale-[1.02]">
                                 <CardHeader>
                                     <div className="grid grid-cols-4 gap-4 items-center">
                                         <h2 className="text-xl font-semibold col-span-1">
@@ -45,7 +45,7 @@ export default async function RaceCalendar() {
                                     <CardContent className="flex flex-col">
                                         <h2 className="text-lg font-semibold mb-2">Top 3:</h2>
                                         <ul className="flex gap-4">
-                                            {raceResultsMap[race.round]?.races.results.slice(0, 3).map((entry: any, idx: number) => (
+                                            {(raceResultsMap[race.round]?.races?.results || []).slice(0, 3).map((entry: any, idx: number) => (
                                                 <li key={idx} className="flex items-center gap-2 text-md">
                                                     {idx === 0 && <span><Image src="/1stPlaceMedal.svg" width={24} height={24} alt="1st"/></span>}
                                                     {idx === 1 && <span><Image src="/2ndPlaceMedal.svg" width={24} height={24} alt="2nd"/></span>}

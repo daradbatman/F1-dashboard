@@ -1,4 +1,4 @@
-import { Race } from "@/types/f1-types";
+import { Circuit, Race } from "@/types/f1-types";
 import {
   Card,
   CardContent,
@@ -6,66 +6,60 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { findNextEvent } from "@/lib/utils";
 
 interface RaceInfoCardProps {
-  race: Race;
+  circuit: Circuit | undefined;
+  raceName: string | undefined;
+  round: number; 
 }
 
-export const RaceInfoCard: React.FC<RaceInfoCardProps> = ({ race }) => {
+export const RaceInfoCard: React.FC<RaceInfoCardProps> = ({ circuit, raceName, round }) => {
   // Find the next event from the schedule
-  const nextEvent = findNextEvent(race.schedule);
 
   return (
-    <Card className="w-[350px] hover:shadow-lg transition-shadow">
+    <Card className="hover:shadow-lg transition-shadow">
       <CardHeader>
         <div className="flex items-center justify-between">
           <div>
-            <CardTitle>{race.raceName || race.circuit.circuitName}</CardTitle>
-            <CardDescription>Round {race.round}</CardDescription>
+            <CardTitle>{raceName || circuit?.circuitName}</CardTitle>
+            <CardDescription>Round {round}</CardDescription>
           </div>
         </div>
       </CardHeader>
       <CardContent>
-        <div className="space-y-4">
-          <div className="col-span-2 w-full">
-            <p className="text-sm font-semibold">Next Event: {nextEvent?.type}</p>
-            <p className="text-xs text-muted-foreground">
-              {nextEvent?.date && new Date(nextEvent.date).toLocaleDateString()}
-            </p>
-            {nextEvent?.time && (
-              <p className="text-xs text-muted-foreground">
-                {new Date('1970-01-01T' + nextEvent.time).toLocaleTimeString()}
-              </p>
-            )}
-          </div>
-          <div className="grid grid-cols-2 gap-2 text-sm">
-            <div>
-              <p className="text-muted-foreground">Circuit</p>
-              <p className="font-medium">{race.circuit.circuitName}</p>
+        {
+          circuit && (
+            <div className="flex flex-col gap-4">
+              <div className="grid grid-cols-3 gap-2 text-sm">
+                <div>
+                  <p className="text-muted-foreground">Circuit</p>
+                  <p className="font-medium">{circuit?.circuitName}</p>
+                </div>
+                <div>
+                  <p className="text-muted-foreground">Location</p>
+                  <p className="font-medium">{circuit?.city}, {circuit.country}</p>
+                </div>
+                <div>
+                  <p className="text-muted-foreground">Circuit Length</p>
+                  <p className="font-medium">{circuit.circuitLength} ({circuit.circuitLength.replace(/[km]/g,"")} miles)</p>
+                </div>
+                <div className="text-sm">
+                  <p className="text-muted-foreground mb-1">Track Record</p>
+                  <p className="font-medium">{circuit.lapRecord}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {circuit.fastestLapDriverId} ({circuit.fastestLapYear})
+                  </p>
+                </div>
+                <div>
+                  <p className="text-muted-foreground">Year of first race</p>
+                  <p className="font-medium">{circuit.firstParticipationYear}</p>
+                </div>
+              </div>
             </div>
-            <div>
-              <p className="text-muted-foreground">Location</p>
-              <p className="font-medium">{race.circuit.country}</p>
-            </div>
-            <div>
-              <p className="text-muted-foreground">Circuit Length</p>
-              <p className="font-medium">{race.circuit.circuitLength}</p>
-            </div>
-            <div>
-              <p className="text-muted-foreground">Laps</p>
-              <p className="font-medium">{race.laps || 'TBA'}</p>
-            </div>
-          </div>
-          
-          <div className="text-sm">
-            <p className="text-muted-foreground mb-1">Lap Record</p>
-            <p className="font-medium">{race.circuit.lapRecord}</p>
-            <p className="text-xs text-muted-foreground">
-              {race.circuit.fastestLapDriverId} ({race.circuit.fastestLapYear})
-            </p>
-          </div>
-        </div>
+          ) || (
+            <p className="font-medium">Event has not occurred yet</p>
+          )
+        }
       </CardContent>
     </Card>
   );

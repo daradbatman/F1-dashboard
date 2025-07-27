@@ -24,23 +24,23 @@ export const DriverStandings: React.FC = () => {
   return (
     <div className="p-w-full max-w-none flex flex-col">
       <div>
-                <h1 className="text-2xl font-bold mb-4">{year} Driver Standings</h1>
-                <Select onValueChange={(value) => setYear(Number(value))} value={year.toString()}>
-                    <SelectTrigger className="w-32">
-                        <SelectValue placeholder="Select Year" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        {Array.from({ length: new Date().getFullYear() - 1958 + 1 }, (_, i) => {
-                            const yr = new Date().getFullYear() - i;
-                            return (
-                                <SelectItem key={yr} value={yr.toString()}>
-                                    {yr}
-                                </SelectItem>
-                            );
-                        })}
-                    </SelectContent>
-                </Select>
-            </div>
+        <h1 className="text-2xl font-bold mb-4">{year} Driver Standings</h1>
+        <Select onValueChange={(value) => setYear(Number(value))} value={year.toString()}>
+            <SelectTrigger className="w-32">
+                <SelectValue placeholder="Select Year" />
+            </SelectTrigger>
+            <SelectContent>
+                {Array.from({ length: new Date().getFullYear() - 1958 + 1 }, (_, i) => {
+                    const yr = new Date().getFullYear() - i;
+                    return (
+                        <SelectItem key={yr} value={yr.toString()}>
+                            {yr}
+                        </SelectItem>
+                    );
+                })}
+            </SelectContent>
+        </Select>
+      </div>
       <Table className="w-full">
         <TableHeader>
           <TableRow>
