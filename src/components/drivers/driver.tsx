@@ -7,27 +7,25 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import Image from "next/image";
 
 export interface DriverProps {
-  position: number;
-  points: number;
-  wins: number;
-  driver: Driver;
-  teamName: string;
+  position: number | undefined;
+  points: number | undefined;
+  wins: number | undefined;
+  driver: Driver | undefined;
 }
 
-export const DriverCard: React.FC<DriverProps> = ({ position, points, wins, driver, teamName }) => {
+export const DriverCard: React.FC<DriverProps> = ({ position, points, wins, driver }) => {
   return (
     <Card className="w-[350px] hover:shadow-lg transition-shadow">
       <CardHeader>
         <div className="flex items-center gap-4">
             <div className="relative w-16 h-16 rounded-full overflow-hidden flex items-center justify-center bg-gray-200">
-              <span className="text-lg font-semibold text-black">{driver.shortName}</span>
+              <span className="text-lg font-semibold text-black">{driver?.shortName}</span>
             </div>
           <div>
-            <CardTitle>{`${driver.name} ${driver.surname}`}</CardTitle>
-            <CardDescription>{driver.nationality}</CardDescription>
+            <CardTitle>{`${driver?.name} ${driver?.surname}`}</CardTitle>
+            <CardDescription>{driver?.nationality}</CardDescription>
           </div>
         </div>
       </CardHeader>
@@ -35,7 +33,7 @@ export const DriverCard: React.FC<DriverProps> = ({ position, points, wins, driv
         <div className="grid grid-cols-2 gap-2 text-sm">
           <div className="flex flex-col">
             <span className="text-muted-foreground">Number</span>
-            <span className="font-medium">{driver.number}</span>
+            <span className="font-medium">{driver?.number}</span>
           </div>
           <div className="flex flex-col">
             <span className="text-muted-foreground">Points</span>

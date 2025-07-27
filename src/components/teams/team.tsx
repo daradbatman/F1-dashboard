@@ -4,11 +4,11 @@ import Image from "next/image";
 
 
 export interface TeamCardProps {
-    teamId: string;
-    position: number;
-    points: number;
-    wins: number;
-    team: Team;
+    teamId: string | undefined;
+    position: number | undefined;
+    points: number | undefined;
+    wins: number | undefined;
+    team: Team | undefined;
 }
 
 export const TeamCard: React.FC<TeamCardProps> = ({wins, points, position, team, teamId}) => {
@@ -19,14 +19,14 @@ export const TeamCard: React.FC<TeamCardProps> = ({wins, points, position, team,
           <div className="relative w-16 h-16 overflow-hidden">
             <Image
               src={`/${teamId}.svg`}
-              alt={`${team.teamName}`}
+              alt={`${team?.teamName}`}
               width={64}
               height={64}
               className="object-cover"
             />
           </div>
           <div>
-            <CardTitle>{`${team.teamName}`}</CardTitle>
+            <CardTitle>{`${team?.teamName}`}</CardTitle>
           </div>
         </div>
       </CardHeader>

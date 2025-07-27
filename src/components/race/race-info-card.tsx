@@ -6,7 +6,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import Image from "next/image";
 import { findNextEvent } from "@/lib/utils";
 
 interface RaceInfoCardProps {

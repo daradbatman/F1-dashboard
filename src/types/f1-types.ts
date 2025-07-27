@@ -146,6 +146,11 @@ export interface RaceScheduleResponse extends BaseApiResponse {
     race: Race[];
 }
 
+export interface SeasonCalendarResponse extends BaseApiResponse {
+    championship: Championship;
+    races: Race[];
+}
+
 export interface QualifyingResult {
     classificationId: number;
     driverId: string;
@@ -216,4 +221,15 @@ export interface ConstructorStandingResponse extends BaseApiResponse {
         wins: number;
         team: Team;
     }>;
+}
+
+export interface RaceResultsResponse extends BaseApiResponse {
+    races: {
+        round: number;
+        date: string;
+        time: string;
+        raceName: string;
+        circuit: Circuit;
+        results: RaceResult[];
+    }
 }
