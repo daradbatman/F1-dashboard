@@ -57,7 +57,7 @@ export const RaceInfoCard: React.FC<RaceInfoCardProps> = ({ circuit, raceName, r
               </div>
             </div>
           ) || (
-            <p className="font-medium">Event has not occurred yet</p>
+            <p className="font-medium">Data not available yet.</p>
           )
         }
       </CardContent>

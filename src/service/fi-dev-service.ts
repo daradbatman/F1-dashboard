@@ -91,6 +91,16 @@ export class F1Service {
         return response.json();
     }
 
+    async getPreviousRaceResult(): Promise<RaceResultsResponse | null> {
+        const response = await fetch(`${BASE_URL}/current/last/race`, {
+            next: { revalidate: 86400}
+        });
+        if (!response.ok) {            
+            return null;
+        }
+        return response.json();
+    }
+
     async getConstructorStandingsByYear(year: number): Promise<ConstructorStandingResponse | null> {
         const response = await fetch(`${BASE_URL}/${year}/constructors-championship`, {
             next: { revalidate: 86400}

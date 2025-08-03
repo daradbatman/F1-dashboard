@@ -125,8 +125,14 @@ export default async function RaceDetail(props: { params: Promise<{ round: strin
             {
                 sprintRaceResults && sprintRaceResults.races && sprintRaceResults.races.sprintRaceResults &&
                 <div className="mb-8">
-                    <h2 className="text-2xl font-bold mb-4">Sprint Race Results</h2>
-                    <Table>
+                    <Collapsible>
+                        <CollapsibleTrigger asChild>
+                            <Button variant="ghost" className="w-full justify-between">
+                                <h2 className="text-2xl font-bold mb-4"> Sprint Race Results </h2><ArrowDown />
+                            </Button>
+                        </CollapsibleTrigger>
+                        <CollapsibleContent>
+                            <Table>
                         <TableHeader>
                             <TableHead>Position</TableHead>
                             <TableHead>Driver</TableHead>
@@ -146,81 +152,144 @@ export default async function RaceDetail(props: { params: Promise<{ round: strin
                         }
                         </TableBody>
                     </Table>
+                        </CollapsibleContent>
+                    </Collapsible>
+                </div>
+            }
+            {
+                sprintQualyResults && sprintQualyResults.races && sprintQualyResults.races.sprintQualyResults &&
+                <div className="mb-8">
+                    <Collapsible>
+                        <CollapsibleTrigger asChild>
+                            <Button variant="ghost" className="w-full justify-between">
+                                <h2 className="text-2xl font-bold mb-4"> Sprint Qualifying Results </h2><ArrowDown />
+                            </Button>
+                        </CollapsibleTrigger>
+                        <CollapsibleContent>
+                            <Table>
+                                <TableHeader>
+                                    <TableHead>Position</TableHead>
+                                    <TableHead>Driver</TableHead>
+                                    <TableHead>Team</TableHead>
+                                    <TableHead>SQ1</TableHead>
+                                    <TableHead>SQ2</TableHead>
+                                    <TableHead>SQ3</TableHead>
+                                </TableHeader>
+                                <TableBody>
+                                {
+                                    sprintQualyResults.races.sprintQualyResults.map((result => (
+                                        <TableRow>
+                                            <TableCell>{result.gridPosition}</TableCell>
+                                            <TableCell>{result.driver.name} {result.driver.surname}</TableCell>
+                                            <TableCell>{result.team.teamName}</TableCell>
+                                            <TableCell>{result.sq1 || "N/A"}</TableCell>
+                                            <TableCell>{result.sq2 || "N/A"}</TableCell>
+                                            <TableCell>{result.sq3 || "N/A"}</TableCell>
+                                        </TableRow>
+                                    )))
+                                }
+                                </TableBody>
+                            </Table>
+                        </CollapsibleContent>
+                    </Collapsible>
                 </div>
             }
             {
                 fp3Results && fp3Results.races && fp3Results.races.fp3Results &&
                 <div className="mb-8">
-                    <h2 className="text-2xl font-bold mb-4">Free Practice 3 Results</h2>
-                    <Table>
-                        <TableHeader>
-                            <TableHead>Driver</TableHead>
-                            <TableHead>Team</TableHead>
-                            <TableHead>Time</TableHead>
-                        </TableHeader>
-                        <TableBody>
-                        {
-                            fp3Results.races.fp3Results.map((result => (
-                                <TableRow>
-                                    <TableCell>{result.driver.name} {result.driver.surname}</TableCell>
-                                    <TableCell>{result.team.teamName}</TableCell>
-                                    <TableCell>{result.time || "N/A"}</TableCell>
-                                </TableRow>
-                            )))
-                        }
-                        </TableBody>
-                    </Table>
+                    <Collapsible>
+                        <CollapsibleTrigger asChild>
+                            <Button variant="ghost" className="w-full justify-between">
+                                <h2 className="text-2xl font-bold mb-4"> Free Practice 3 Results </h2><ArrowDown />
+                            </Button>
+                        </CollapsibleTrigger>
+                        <CollapsibleContent>
+                            <Table>
+                                <TableHeader>
+                                    <TableHead>Driver</TableHead>
+                                    <TableHead>Team</TableHead>
+                                    <TableHead>Time</TableHead>
+                                </TableHeader>
+                                <TableBody>
+                                {
+                                    fp3Results.races.fp3Results.map((result => (
+                                        <TableRow>
+                                            <TableCell>{result.driver.name} {result.driver.surname}</TableCell>
+                                            <TableCell>{result.team.teamName}</TableCell>
+                                            <TableCell>{result.time || "N/A"}</TableCell>
+                                        </TableRow>
+                                    )))
+                                }
+                                </TableBody>
+                            </Table>
+                        </CollapsibleContent>
+                    </Collapsible>
                 </div>
             }
             {
                 fp2Results && fp2Results.races && fp2Results.races.fp2Results &&
                 <div className="mb-8">
-                    <h2 className="text-2xl font-bold mb-4">Free Practice 3 Results</h2>
-                    <Table>
-                        <TableHeader>
-                            <TableHead>Driver</TableHead>
-                            <TableHead>Team</TableHead>
-                            <TableHead>Time</TableHead>
-                        </TableHeader>
-                        <TableBody>
-                        {
-                            fp2Results.races.fp2Results.map((result => (
-                                <TableRow>
-                                    <TableCell>{result.driver.name} {result.driver.surname}</TableCell>
-                                    <TableCell>{result.team.teamName}</TableCell>
-                                    <TableCell>{result.time || "N/A"}</TableCell>
-                                </TableRow>
-                            )))
-                        }
-                        </TableBody>
-                    </Table>
+                    <Collapsible>
+                        <CollapsibleTrigger asChild>
+                            <Button variant="ghost" className="w-full justify-between">
+                                <h2 className="text-2xl font-bold mb-4"> Free Practice 2 Results </h2><ArrowDown />
+                            </Button>
+                        </CollapsibleTrigger>
+                        <CollapsibleContent>
+                            <Table>
+                                <TableHeader>
+                                    <TableHead>Driver</TableHead>
+                                    <TableHead>Team</TableHead>
+                                    <TableHead>Time</TableHead>
+                                </TableHeader>
+                                <TableBody>
+                                {
+                                    fp2Results.races.fp2Results.map((result => (
+                                        <TableRow>
+                                            <TableCell>{result.driver.name} {result.driver.surname}</TableCell>
+                                            <TableCell>{result.team.teamName}</TableCell>
+                                            <TableCell>{result.time || "N/A"}</TableCell>
+                                        </TableRow>
+                                    )))
+                                }
+                                </TableBody>
+                            </Table>
+                        </CollapsibleContent>
+                    </Collapsible>
                 </div>
             }
             {
                 fp1Results && fp1Results.races && fp1Results.races.fp1Results &&
                 <div className="mb-8">
-                    <h2 className="text-2xl font-bold mb-4">Free Practice 3 Results</h2>
-                    <Table>
-                        <TableHeader>
-                            <TableHead>Driver</TableHead>
-                            <TableHead>Team</TableHead>
-                            <TableHead>Time</TableHead>
-                        </TableHeader>
-                        <TableBody>
-                        {
-                            fp1Results.races.fp1Results.map((result => (
-                                <TableRow>
-                                    <TableCell>{result.driver.name} {result.driver.surname}</TableCell>
-                                    <TableCell>{result.team.teamName}</TableCell>
-                                    <TableCell>{result.time || "N/A"}</TableCell>
-                                </TableRow>
-                            )))
-                        }
-                        </TableBody>
-                    </Table>
+                    <Collapsible>
+                        <CollapsibleTrigger asChild>
+                            <Button variant="ghost" className="w-full justify-between">
+                                <h2 className="text-2xl font-bold mb-4"> Free Practice 1 Results </h2><ArrowDown />
+                            </Button>
+                        </CollapsibleTrigger>
+                        <CollapsibleContent>
+                            <Table>
+                                <TableHeader>
+                                    <TableHead>Driver</TableHead>
+                                    <TableHead>Team</TableHead>
+                                    <TableHead>Time</TableHead>
+                                </TableHeader>
+                                <TableBody>
+                                {
+                                    fp1Results.races.fp1Results.map((result => (
+                                        <TableRow>
+                                            <TableCell>{result.driver.name} {result.driver.surname}</TableCell>
+                                            <TableCell>{result.team.teamName}</TableCell>
+                                            <TableCell>{result.time || "N/A"}</TableCell>
+                                        </TableRow>
+                                    )))
+                                }
+                                </TableBody>
+                            </Table>
+                        </CollapsibleContent>
+                    </Collapsible>
                 </div>
             }
         </div>
-
     )
 }

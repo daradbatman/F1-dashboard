@@ -12,11 +12,13 @@ export default async function Home() {
   const topDriverStanding = standings?.drivers_championship[0];
   const topConstructorStanding = constructorStandings?.constructors_championship[0];
   const nextRace = nextRaceSchedule?.race?.[0];
+  const previousRace = await f1Service.getPreviousRaceResult().then((data) => data?.races);
 
   return (
     <div className="grid grid-rows-[auto_1fr_auto] items-center justify-items-center min-h-screen mt-0 pt-2 pb-12 px-4 gap-0 sm:pt-4 sm:px-8 font-[family-name:var(--font-geist-sans)]">
-      <main className="row-start-2 w-full flex flex-col items-center sm:items-start">
-        <HeroBanner nextRace={nextRace} />
+      <div className="row-start-1 w-full flex flex-col items-center sm:items-start">
+        <HeroBanner nextRace={undefined} previousRace={previousRace} />
+        <HeroBanner nextRace={nextRace} previousRace={undefined} />
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 w-full">
           {/* Championship Leader */}
           <div>
@@ -40,7 +42,7 @@ export default async function Home() {
             />
           </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 }

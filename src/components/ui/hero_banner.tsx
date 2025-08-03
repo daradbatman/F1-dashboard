@@ -1,13 +1,15 @@
 'use client';
 
 import { Race } from "@/types/f1-types";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 interface Props {
     nextRace: Race | undefined;
+    previousRace: any | undefined;
 }
 
-export const HeroBanner: React.FC<Props> = ({ nextRace }) => {
+export const HeroBanner: React.FC<Props> = ({ nextRace, previousRace }) => {
   const [countdown, setCountdown] = useState("");
 
   useEffect(() => {
@@ -64,12 +66,35 @@ export const HeroBanner: React.FC<Props> = ({ nextRace }) => {
   }, [nextRace]);
 
   return (
-    <div className="w-full bg-gradient-to-r from-red-600 to-black text-white py-8 px-4 rounded-lg mb-8 flex flex-col items-center">
-      <h1 className="text-3xl font-bold mb-2">Next Grand Prix: {nextRace?.raceName}</h1>
-      <p className="text-lg mb-2">
-        {nextRace?.circuit?.circuitName}, {nextRace?.circuit?.country}
-      </p>
-      <p className="text-xl font-mono">{countdown}</p>
-    </div>
+    nextRace && nextRace.schedule ? (
+      <div className="w-full bg-gradient-to-r from-red-600 to-black text-white py-8 px-4 rounded-lg mb-8 flex flex-col items-center">
+        <h1 className="text-3xl font-bold mb-2">Next Grand Prix: {nextRace?.raceName}</h1>
+        <p className="text-lg mb-2">
+          {nextRace?.circuit?.circuitName}, {nextRace?.circuit?.country}
+        </p>
+        <p className="text-xl font-mono">{countdown}</p>
+      </div>
+    ) : (
+      <div className="w-full bg-gradient-to-r from-green-600 to-black text-white-700 py-8 px-4 rounded-lg mb-8 flex flex-col items-center">
+        <h1 className="text-3xl font-bold mb-2">Previous Grand Prix: {previousRace?.raceName}</h1>
+        <p className="text-lg mb-2">
+          {previousRace?.circuit?.circuitName}, {previousRace?.circuit?.country}
+        </p>
+        <div className="flex flex-col items-center flex-wrap text-lg mb-2">
+          <span className="flex items-center gap-1">
+            <Image src="/1stPlaceMedal.svg" width={24} height={24} alt="1st" />
+            {previousRace.results[0].driver.name} {previousRace.results[0].driver.surname}
+          </span>
+          <span className="flex items-center gap-1">
+            <Image src="/2ndPlaceMedal.svg" width={24} height={24} alt="2nd" />
+            {previousRace.results[1].driver.name} {previousRace.results[1].driver.surname}
+          </span>
+          <span className="flex items-center gap-1">
+            <Image src="/3rdPlaceMedal.svg" width={24} height={24} alt="3rd" />
+            {previousRace.results[2].driver.name} {previousRace.results[2].driver.surname}
+          </span>
+        </div>
+      </div>
+    )
   );
 }
