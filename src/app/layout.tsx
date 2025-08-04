@@ -34,7 +34,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <div style={{ display: 'flex', minHeight: '100vh' }}>
               <main className="flex-1 w-full max-w-none">
-                <header className="flex items-center h-[128px] px-4 relative">
+                <header className="flex flex-wrap items-center justify-between px-4 py-4 sm:px-8 sm:py-6 gap-4">
                   <div>
                     <Link href="/">
                       <Image

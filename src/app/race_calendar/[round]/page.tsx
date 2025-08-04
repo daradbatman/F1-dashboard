@@ -57,28 +57,32 @@ export default async function RaceDetail(props: { params: Promise<{ round: strin
                             </Button>
                         </CollapsibleTrigger>
                         <CollapsibleContent>
-                            <Table>
-                                <TableHeader>
-                                    <TableHead>Position</TableHead>
-                                    <TableHead>Driver</TableHead>
-                                    <TableHead>Team</TableHead>
-                                    <TableHead>Time</TableHead>
-                                    <TableHead>Points</TableHead>
-                                </TableHeader>
-                                <TableBody>
-                                {
-                                    raceResult.races.results.map((result => (
+                            <div className="w-full overflow-x-auto rounded-md border">
+                                <Table className="min-w-[600px] w-full text-sm sm:text-base">
+                                    <TableHeader>
                                         <TableRow>
-                                            <TableCell>{result.position}</TableCell>
-                                            <TableCell>{result.driver.name} {result.driver.surname}</TableCell>
-                                            <TableCell>{result.team.teamName}</TableCell>
-                                            <TableCell>{result.time}</TableCell>
-                                            <TableCell>{result.points}</TableCell>
+                                            <TableHead>Position</TableHead>
+                                            <TableHead>Driver</TableHead>
+                                            <TableHead>Team</TableHead>
+                                            <TableHead>Time</TableHead>
+                                            <TableHead>Points</TableHead>
                                         </TableRow>
-                                    )))
-                                }
-                                </TableBody>
-                            </Table>
+                                    </TableHeader>
+                                    <TableBody>
+                                    {
+                                        raceResult.races.results.map(((result, idx) => (
+                                            <TableRow key={idx}>
+                                                <TableCell>{result.position}</TableCell>
+                                                <TableCell>{result.driver.name} {result.driver.surname}</TableCell>
+                                                <TableCell>{result.team.teamName}</TableCell>
+                                                <TableCell>{result.time}</TableCell>
+                                                <TableCell>{result.points}</TableCell>
+                                            </TableRow>
+                                        )))
+                                    }
+                                    </TableBody>
+                                </Table>
+                            </div>
                         </CollapsibleContent>
                     </Collapsible>
                 </div>
@@ -93,30 +97,34 @@ export default async function RaceDetail(props: { params: Promise<{ round: strin
                             </Button>
                         </CollapsibleTrigger>
                         <CollapsibleContent>
-                            <Table>
-                                <TableHeader>
-                                    <TableHead>Position</TableHead>
-                                    <TableHead>Driver</TableHead>
-                                    <TableHead>Team</TableHead>
-                                    <TableHead>Q1</TableHead>
-                                    <TableHead>Q2</TableHead>
-                                    <TableHead>Q3</TableHead>
-                                </TableHeader>
-                                <TableBody>
-                                {
-                                    qualyResults.races.qualyResults.map((result => (
-                                        <TableRow key={result.classificationId}>
-                                            <TableCell>{result.gridPosition}</TableCell>
-                                            <TableCell>{result.driver.name} {result.driver.surname}</TableCell>
-                                            <TableCell>{result.team.teamName}</TableCell>
-                                            <TableCell>{result.q1 || "N/A"}</TableCell>
-                                            <TableCell>{result.q2 || "N/A"}</TableCell>
-                                            <TableCell>{result.q3 || "N/A"}</TableCell>
+                            <div className="w-full overflow-x-auto rounded-md borders">
+                                <Table className="min-w-[600px] w-full text-sm sm:text-base">
+                                    <TableHeader>
+                                        <TableRow>
+                                            <TableHead>Position</TableHead>
+                                            <TableHead>Driver</TableHead>
+                                            <TableHead>Team</TableHead>
+                                            <TableHead>Q1</TableHead>
+                                            <TableHead>Q2</TableHead>
+                                            <TableHead>Q3</TableHead>
                                         </TableRow>
-                                    )))
-                                }
-                                </TableBody>
-                            </Table>
+                                    </TableHeader>
+                                    <TableBody>
+                                    {
+                                        qualyResults.races.qualyResults.map(((result, idx) => (
+                                            <TableRow key={idx}>
+                                                <TableCell>{result.gridPosition}</TableCell>
+                                                <TableCell>{result.driver.name} {result.driver.surname}</TableCell>
+                                                <TableCell>{result.team.teamName}</TableCell>
+                                                <TableCell>{result.q1 || "N/A"}</TableCell>
+                                                <TableCell>{result.q2 || "N/A"}</TableCell>
+                                                <TableCell>{result.q3 || "N/A"}</TableCell>
+                                            </TableRow>
+                                        )))
+                                    }
+                                    </TableBody>
+                                </Table>
+                            </div>
                         </CollapsibleContent>
                     </Collapsible>
                 </div>
@@ -132,26 +140,30 @@ export default async function RaceDetail(props: { params: Promise<{ round: strin
                             </Button>
                         </CollapsibleTrigger>
                         <CollapsibleContent>
-                            <Table>
-                        <TableHeader>
-                            <TableHead>Position</TableHead>
-                            <TableHead>Driver</TableHead>
-                            <TableHead>Team</TableHead> 
-                            <TableHead>Points</TableHead>
-                        </TableHeader>
-                        <TableBody>
-                        {
-                            sprintRaceResults.races.sprintRaceResults.map((result => (
-                                <TableRow key={result.sprintRaceId}>
-                                    <TableCell>{result.position}</TableCell>
-                                    <TableCell>{result.driver.name} {result.driver.surname}</TableCell>
-                                    <TableCell>{result.team.teamName}</TableCell>
-                                    <TableCell>{result.points}</TableCell>
-                                </TableRow>
-                            )))
-                        }
-                        </TableBody>
-                    </Table>
+                            <div className="w-full overflow-x-auto rounded-md border">
+                                <Table className="min-w-[600px] w-full text-sm sm:text-base">
+                                    <TableHeader>
+                                        <TableRow>
+                                            <TableHead>Position</TableHead>
+                                            <TableHead>Driver</TableHead>
+                                            <TableHead>Team</TableHead> 
+                                            <TableHead>Points</TableHead>
+                                        </TableRow>
+                                    </TableHeader>
+                                    <TableBody>
+                                    {
+                                        sprintRaceResults.races.sprintRaceResults.map(((result, idx) => (
+                                            <TableRow key={idx}>
+                                                <TableCell>{result.position}</TableCell>
+                                                <TableCell>{result.driver.name} {result.driver.surname}</TableCell>
+                                                <TableCell>{result.team.teamName}</TableCell>
+                                                <TableCell>{result.points}</TableCell>
+                                            </TableRow>
+                                        )))
+                                    }
+                                    </TableBody>
+                                </Table>
+                            </div>
                         </CollapsibleContent>
                     </Collapsible>
                 </div>
@@ -166,30 +178,34 @@ export default async function RaceDetail(props: { params: Promise<{ round: strin
                             </Button>
                         </CollapsibleTrigger>
                         <CollapsibleContent>
-                            <Table>
-                                <TableHeader>
-                                    <TableHead>Position</TableHead>
-                                    <TableHead>Driver</TableHead>
-                                    <TableHead>Team</TableHead>
-                                    <TableHead>SQ1</TableHead>
-                                    <TableHead>SQ2</TableHead>
-                                    <TableHead>SQ3</TableHead>
-                                </TableHeader>
-                                <TableBody>
-                                {
-                                    sprintQualyResults.races.sprintQualyResults.map((result => (
+                            <div className="w-full overflow-x-auto rounded-md border">
+                                <Table className="min-w-[600px] w-full text-sm sm:text-base">
+                                    <TableHeader>
                                         <TableRow>
-                                            <TableCell>{result.gridPosition}</TableCell>
-                                            <TableCell>{result.driver.name} {result.driver.surname}</TableCell>
-                                            <TableCell>{result.team.teamName}</TableCell>
-                                            <TableCell>{result.sq1 || "N/A"}</TableCell>
-                                            <TableCell>{result.sq2 || "N/A"}</TableCell>
-                                            <TableCell>{result.sq3 || "N/A"}</TableCell>
+                                            <TableHead>Position</TableHead>
+                                            <TableHead>Driver</TableHead>
+                                            <TableHead>Team</TableHead>
+                                            <TableHead>SQ1</TableHead>
+                                            <TableHead>SQ2</TableHead>
+                                            <TableHead>SQ3</TableHead>
                                         </TableRow>
-                                    )))
-                                }
-                                </TableBody>
-                            </Table>
+                                    </TableHeader>
+                                    <TableBody>
+                                    {
+                                        sprintQualyResults.races.sprintQualyResults.map(((result, idx) => (
+                                            <TableRow key={idx}>
+                                                <TableCell>{result.gridPosition}</TableCell>
+                                                <TableCell>{result.driver.name} {result.driver.surname}</TableCell>
+                                                <TableCell>{result.team.teamName}</TableCell>
+                                                <TableCell>{result.sq1 || "N/A"}</TableCell>
+                                                <TableCell>{result.sq2 || "N/A"}</TableCell>
+                                                <TableCell>{result.sq3 || "N/A"}</TableCell>
+                                            </TableRow>
+                                        )))
+                                    }
+                                    </TableBody>
+                                </Table>
+                            </div>
                         </CollapsibleContent>
                     </Collapsible>
                 </div>
@@ -204,24 +220,28 @@ export default async function RaceDetail(props: { params: Promise<{ round: strin
                             </Button>
                         </CollapsibleTrigger>
                         <CollapsibleContent>
-                            <Table>
-                                <TableHeader>
-                                    <TableHead>Driver</TableHead>
-                                    <TableHead>Team</TableHead>
-                                    <TableHead>Time</TableHead>
-                                </TableHeader>
-                                <TableBody>
-                                {
-                                    fp3Results.races.fp3Results.map((result => (
+                            <div className="w-full overflow-x-auto rounded-md border">
+                                <Table className="min-w-[600px] w-full text-sm sm:text-base">
+                                    <TableHeader>
                                         <TableRow>
-                                            <TableCell>{result.driver.name} {result.driver.surname}</TableCell>
-                                            <TableCell>{result.team.teamName}</TableCell>
-                                            <TableCell>{result.time || "N/A"}</TableCell>
+                                            <TableHead>Driver</TableHead>
+                                            <TableHead>Team</TableHead>
+                                            <TableHead>Time</TableHead>
                                         </TableRow>
-                                    )))
-                                }
-                                </TableBody>
-                            </Table>
+                                    </TableHeader>
+                                    <TableBody>
+                                    {
+                                        fp3Results.races.fp3Results.map(((result, idx) => (
+                                            <TableRow key={idx}>
+                                                <TableCell>{result.driver.name} {result.driver.surname}</TableCell>
+                                                <TableCell>{result.team.teamName}</TableCell>
+                                                <TableCell>{result.time || "N/A"}</TableCell>
+                                            </TableRow>
+                                        )))
+                                    }
+                                    </TableBody>
+                                </Table>
+                            </div>
                         </CollapsibleContent>
                     </Collapsible>
                 </div>
@@ -236,24 +256,28 @@ export default async function RaceDetail(props: { params: Promise<{ round: strin
                             </Button>
                         </CollapsibleTrigger>
                         <CollapsibleContent>
-                            <Table>
-                                <TableHeader>
-                                    <TableHead>Driver</TableHead>
-                                    <TableHead>Team</TableHead>
-                                    <TableHead>Time</TableHead>
-                                </TableHeader>
-                                <TableBody>
-                                {
-                                    fp2Results.races.fp2Results.map((result => (
+                            <div className="w-full overflow-x-auto rounded-md border">
+                                <Table className="min-w-[600px] w-full text-sm sm:text-base">
+                                    <TableHeader>
                                         <TableRow>
-                                            <TableCell>{result.driver.name} {result.driver.surname}</TableCell>
-                                            <TableCell>{result.team.teamName}</TableCell>
-                                            <TableCell>{result.time || "N/A"}</TableCell>
+                                            <TableHead>Driver</TableHead>
+                                            <TableHead>Team</TableHead>
+                                            <TableHead>Time</TableHead>
                                         </TableRow>
-                                    )))
-                                }
-                                </TableBody>
-                            </Table>
+                                    </TableHeader>
+                                    <TableBody>
+                                    {
+                                        fp2Results.races.fp2Results.map(((result, idx) => (
+                                            <TableRow key={result.driverId}>
+                                                <TableCell>{result.driver.name} {result.driver.surname}</TableCell>
+                                                <TableCell>{result.team.teamName}</TableCell>
+                                                <TableCell>{result.time || "N/A"}</TableCell>
+                                            </TableRow>
+                                        )))
+                                    }
+                                    </TableBody>
+                                </Table>
+                            </div>
                         </CollapsibleContent>
                     </Collapsible>
                 </div>
@@ -268,24 +292,28 @@ export default async function RaceDetail(props: { params: Promise<{ round: strin
                             </Button>
                         </CollapsibleTrigger>
                         <CollapsibleContent>
-                            <Table>
-                                <TableHeader>
-                                    <TableHead>Driver</TableHead>
-                                    <TableHead>Team</TableHead>
-                                    <TableHead>Time</TableHead>
-                                </TableHeader>
-                                <TableBody>
-                                {
-                                    fp1Results.races.fp1Results.map((result => (
+                            <div className="w-full overflow-x-auto rounded-md border">
+                                <Table className="min-w-[600px] w-full text-sm sm:text-base">
+                                    <TableHeader>
                                         <TableRow>
-                                            <TableCell>{result.driver.name} {result.driver.surname}</TableCell>
-                                            <TableCell>{result.team.teamName}</TableCell>
-                                            <TableCell>{result.time || "N/A"}</TableCell>
+                                            <TableHead>Driver</TableHead>
+                                            <TableHead>Team</TableHead>
+                                            <TableHead>Time</TableHead>
                                         </TableRow>
-                                    )))
-                                }
-                                </TableBody>
-                            </Table>
+                                    </TableHeader>
+                                    <TableBody>
+                                    {
+                                        fp1Results.races.fp1Results.map(((result, idx) => (
+                                            <TableRow key={idx}>
+                                                <TableCell>{result.driver.name} {result.driver.surname}</TableCell>
+                                                <TableCell>{result.team.teamName}</TableCell>
+                                                <TableCell>{result.time || "N/A"}</TableCell>
+                                            </TableRow>
+                                        )))
+                                    }
+                                    </TableBody>
+                                </Table>
+                            </div>
                         </CollapsibleContent>
                     </Collapsible>
                 </div>

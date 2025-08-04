@@ -6,7 +6,7 @@ import { navigationMenuTriggerStyle } from "./navigation-menu";
 export function Navigation() {
   return (
     <NavigationMenu>
-      <NavigationMenuList style={{ display: "flex", gap: "1rem" }}>
+      <NavigationMenuList className="flex flex-wrap items-center gap-4 text-sm sm:text-base">
         <NavigationMenuItem>
           <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
             <Link href="/drivers">

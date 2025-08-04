@@ -19,10 +19,9 @@ export default async function Home() {
       <div className="row-start-1 w-full flex flex-col items-center sm:items-start">
         <HeroBanner nextRace={undefined} previousRace={previousRace} />
         <HeroBanner nextRace={nextRace} previousRace={undefined} />
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full">
           {/* Championship Leader */}
-          <div>
-            <h1 className="text-2xl font-bold mt-0 mb-4">Championship Leader</h1>
+          <div className="w-full">
             <DriverCard
               position={topDriverStanding?.position}
               points={topDriverStanding?.points}
@@ -31,8 +30,7 @@ export default async function Home() {
             />
           </div>
           {/* Leading Constructor */}
-          <div>
-            <h1 className="text-2xl font-bold mt-0 mb-4">Leading Constructor</h1>
+          <div className="w-full">
             <TeamCard
               position={topConstructorStanding?.position}
               points={topConstructorStanding?.points}

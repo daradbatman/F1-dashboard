@@ -13,10 +13,13 @@ export interface TeamCardProps {
 
 export const TeamCard: React.FC<TeamCardProps> = ({wins, points, position, team, teamId}) => {
   return (
-    <Card className="w-[350px] hover:shadow-lg transition-shadow">
+    <Card className="w-full h-full hover:shadow-lg transition-shadow">
       <CardHeader>
-        <div className="flex items-center gap-4">
-          <div className="relative w-16 h-16 overflow-hidden">
+        <div className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+          <CardTitle className="text-base sm:text-lg">Leading Constructor</CardTitle>
+        </div>
+        <div className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+          <div className="relative w-16 h-16 overflow-hidden flex items-center justify-center">
             <Image
               src={`/${teamId}.svg`}
               alt={`${team?.teamName}`}
@@ -26,21 +29,21 @@ export const TeamCard: React.FC<TeamCardProps> = ({wins, points, position, team,
             />
           </div>
           <div>
-            <CardTitle>{`${team?.teamName}`}</CardTitle>
+            <CardTitle className="text-base sm:text-lg">{`${team?.teamName}`}</CardTitle>
           </div>
         </div>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-2 gap-2 text-sm">
-          <div className="flex flex-col">
+        <div className="grid grid-cols-2 gap-y-4 gap-x-2 text-sm sm:text-base">
+          <div className="flex flex-col items-center sm:items-start">
             <span className="text-muted-foreground">Points</span>
             <span className="font-medium">{points || 0}</span>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col items-center sm:items-start">
             <span className="text-muted-foreground">Position</span>
             <span className="font-medium">{position || '-'}</span>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col items-center sm:items-start">
             <span className="text-muted-foreground">Wins</span>
             <span className="font-medium">{wins || 0}</span>
           </div>
