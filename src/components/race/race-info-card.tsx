@@ -1,4 +1,4 @@
-import { Circuit, Race } from "@/types/f1-types";
+import { Circuit } from "@/types/f1-types";
 import {
   Card,
   CardContent,

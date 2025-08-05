@@ -268,7 +268,7 @@ export default async function RaceDetail(props: { params: Promise<{ round: strin
                                     <TableBody>
                                     {
                                         fp2Results.races.fp2Results.map(((result, idx) => (
-                                            <TableRow key={result.driverId}>
+                                            <TableRow key={idx}>
                                                 <TableCell>{result.driver.name} {result.driver.surname}</TableCell>
                                                 <TableCell>{result.team.teamName}</TableCell>
                                                 <TableCell>{result.time || "N/A"}</TableCell>

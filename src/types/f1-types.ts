@@ -111,7 +111,13 @@ export interface DriverDetailResponse extends BaseApiResponse {
             pointsObtained: number;
             retired: boolean | null;
         };
-        sprintResult: any | null;
+        sprintResult: {
+            finishingPosition: number;
+            gridPosition: number;
+            raceTime: string;
+            pointsObtained: number;
+            retired: boolean | null;
+        } | null;
     }>;
 }
 

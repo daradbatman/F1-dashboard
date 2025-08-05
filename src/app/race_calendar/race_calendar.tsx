@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { F1Service } from "@/service/fi-dev-service";
-import { RaceResultsResponse, SeasonCalendarResponse } from "@/types/f1-types";
+import { RaceResult, RaceResultsResponse, SeasonCalendarResponse } from "@/types/f1-types";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -57,7 +57,7 @@ export default async function RaceCalendar() {
                     <ul className="flex flex-col sm:flex-row gap-2 sm:gap-4">
                       {(raceResultsMap[race.round]?.races?.results || [])
                         .slice(0, 3)
-                        .map((entry: any, idx: number) => (
+                        .map((entry: RaceResult, idx: number) => (
                           <li
                             key={idx}
                             className="flex items-center gap-2 text-md"
@@ -87,8 +87,7 @@ export default async function RaceCalendar() {
                               />
                             )}
                             <span className="font-semibold">
-                              {entry.driver.name} {entry.driver.surname}{" "}
-                              {entry.team.name}
+                              {entry.driver.name} {entry.driver.surname}
                             </span>
                           </li>
                         ))}
