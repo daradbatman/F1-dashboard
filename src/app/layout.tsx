@@ -35,7 +35,7 @@ export default function RootLayout({
             <div style={{ display: 'flex', minHeight: '100vh' }}>
               <main className="flex-1 w-full max-w-none">
                 <header className="flex flex-wrap items-center justify-between px-4 py-4 sm:px-8 sm:py-6 gap-4">
-                  <div>
+                    <div className="bg-white rounded-lg">
                     <Link href="/">
                       <Image
                         src="/f1-logo copy.svg"

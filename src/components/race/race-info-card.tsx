@@ -41,7 +41,9 @@ export const RaceInfoCard: React.FC<RaceInfoCardProps> = ({ circuit, raceName, r
                 </div>
                 <div>
                   <p className="text-muted-foreground">Circuit Length</p>
-                  <p className="font-medium">{circuit.circuitLength} ({circuit.circuitLength.replace(/[km]/g,"")} miles)</p>
+                    <p className="font-medium">
+                      {circuit.circuitLength} ({(parseFloat(circuit.circuitLength) * 0.621371).toFixed(2)} miles)
+                    </p>
                 </div>
                 <div className="text-sm">
                   <p className="text-muted-foreground mb-1">Track Record</p>
