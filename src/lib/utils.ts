@@ -63,7 +63,7 @@ export function getColorFromTeamId(teamId: string): string {
     'mclaren': 'orange',
     'alpine': 'dodgerblue',
     'aston_martin': 'seagreen',
-    'haas': 'white',
+    'haas': 'indianred',
     'sauber': 'lawngreen',
     'williams': 'lightskyblue',
     'rb': 'cornflowerblue',

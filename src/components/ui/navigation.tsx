@@ -10,21 +10,21 @@ export function Navigation() {
         <NavigationMenuItem>
           <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
             <Link href="/drivers">
-              <Medal /> Driver Standings
+              <Medal />&nbsp; Driver Standings
             </Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
           <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
             <Link href="/constructors">
-              <Trophy /> Constructor Standings
+              <Trophy />&nbsp; Constructor Standings
             </Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
           <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
             <Link href="/race_calendar">
-              <CalendarDaysIcon /> Race Calendar
+              <CalendarDaysIcon />&nbsp; Race Calendar
             </Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
