@@ -21,14 +21,9 @@ export const HeroBanner: React.FC<Props> = ({ nextRace, previousRace }) => {
       if (event?.date && event?.time) {
         const [year, month, day] = event.date.split("-");
         const [hour, minute, second] = event.time.replace("Z", "").split(":");
-        const dateTime = new Date(
-          Number(year),
-          Number(month) - 1,
-          Number(day),
-          Number(hour),
-          Number(minute),
-          Number(second || 0)
-        );
+        // Construct ISO string in Zulu (UTC) time
+        const isoString = `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}T${hour.padStart(2, "0")}:${minute.padStart(2, "0")}:${(second || "00").padStart(2, "0")}Z`;
+        const dateTime = new Date(isoString);
         events.push({ name: eventName, dateTime });
       }
     }
