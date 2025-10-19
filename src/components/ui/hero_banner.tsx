@@ -1,12 +1,12 @@
 'use client';
 
-import { Race } from "@/types/f1-types";
+import { Race, RaceResultsResponse, RaceWeekend } from "@/types/f1-types";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
 interface Props {
   nextRace: Race | undefined;
-  previousRace: any | undefined;
+  previousRace: RaceWeekend | undefined;
 }
 
 export const HeroBanner: React.FC<Props> = ({ nextRace, previousRace }) => {
@@ -102,8 +102,8 @@ export const HeroBanner: React.FC<Props> = ({ nextRace, previousRace }) => {
             height={24}
             alt="1st"
           />
-          {previousRace?.results[0]?.driver?.name}{" "}
-          {previousRace.results[0]?.driver?.surname}
+          {previousRace?.results?.[0]?.driver?.name}{" "}
+          {previousRace?.results?.[0]?.driver?.surname}
         </span>
         <span className="flex items-center gap-1">
           <Image
@@ -112,8 +112,8 @@ export const HeroBanner: React.FC<Props> = ({ nextRace, previousRace }) => {
             height={24}
             alt="2nd"
           />
-          {previousRace?.results[1]?.driver?.name}{" "}
-          {previousRace?.results[1]?.driver?.surname}
+          {previousRace?.results?.[1]?.driver?.name}{" "}
+          {previousRace?.results?.[1]?.driver?.surname}
         </span>
         <span className="flex items-center gap-1">
           <Image
@@ -122,8 +122,8 @@ export const HeroBanner: React.FC<Props> = ({ nextRace, previousRace }) => {
             height={24}
             alt="3rd"
           />
-          {previousRace?.results[2]?.driver?.name}{" "}
-          {previousRace?.results[2]?.driver?.surname}
+          {previousRace?.results?.[2]?.driver?.name}{" "}
+          {previousRace?.results?.[2]?.driver?.surname}
         </span>
       </div>
     </div>

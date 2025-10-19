@@ -238,18 +238,20 @@ export interface ConstructorStandingResponse extends BaseApiResponse {
 }
 
 export interface RaceResultsResponse extends BaseApiResponse {
-    races: {
-        round: number;
-        date: string;
-        time: string;
-        raceName: string;
-        circuit: Circuit;
-        results: RaceResult[] | null;
-        qualyResults: QualifyingResult[] | null;
-        sprintQualyResults: SprintQualifyingResult[] | null;
-        sprintRaceResults: SprintRaceResult[] | null;
-        fp1Results: FreePracticeResult[] | null;
-        fp2Results: FreePracticeResult[] | null;
-        fp3Results: FreePracticeResult[] | null;
-    }
+    races: RaceWeekend
+}
+
+export interface RaceWeekend {
+    round: number;
+    date: string;
+    time: string;
+    raceName: string;
+    circuit: Circuit;
+    results: RaceResult[] | null;
+    qualyResults: QualifyingResult[] | null;
+    sprintQualyResults: SprintQualifyingResult[] | null;
+    sprintRaceResults: SprintRaceResult[] | null;
+    fp1Results: FreePracticeResult[] | null;
+    fp2Results: FreePracticeResult[] | null;
+    fp3Results: FreePracticeResult[] | null;
 }
