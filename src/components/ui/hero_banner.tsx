@@ -11,7 +11,6 @@ interface Props {
 
 export const HeroBanner: React.FC<Props> = ({ nextRace, previousRace }) => {
   const [countdown, setCountdown] = useState("");
-  const [eventDateTime, setEventDateTime] = useState<Date | null>(null);
 
   useEffect(() => {
     if (!nextRace?.schedule) return;
@@ -38,7 +37,6 @@ export const HeroBanner: React.FC<Props> = ({ nextRace, previousRace }) => {
       setCountdown("No upcoming events");
       return;
     }
-    setEventDateTime(nextEvent.dateTime);
 
     function updateCountdown() {
       const now = new Date();
@@ -71,9 +69,6 @@ export const HeroBanner: React.FC<Props> = ({ nextRace, previousRace }) => {
       </h1>
       <p className="text-base sm:text-lg mb-2">
         {nextRace?.circuit?.circuitName}, {nextRace?.circuit?.country}
-      </p>
-      <p className="text-sm sm:text-base mb-4">
-        Date: {eventDateTime ? eventDateTime.toLocaleDateString() + " " + eventDateTime.toLocaleTimeString() : 'TBD'}
       </p>
       <p className="text-sm sm:text-base font-mono">{countdown}</p>
     </div>
