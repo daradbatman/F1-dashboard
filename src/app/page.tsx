@@ -2,8 +2,7 @@ import { F1Service } from "@/service/fi-dev-service";
 import { DriverCard } from "@/components/drivers/driver";
 import { TeamCard } from "@/components/teams/team";
 import { HeroBanner } from "@/components/ui/hero_banner";
-
-export const dynamic = 'force-dynamic';
+import { PreviousBanner } from "@/components/ui/previous_banner";
 
 export default async function Home() {
   const f1Service = new F1Service();
@@ -20,8 +19,8 @@ export default async function Home() {
   return (
     <div className="grid grid-rows-[auto_1fr_auto] items-center justify-items-center min-h-screen mt-0 pt-2 pb-12 px-4 gap-0 sm:pt-4 sm:px-8 font-[family-name:var(--font-geist-sans)]">
       <div className="row-start-1 w-full flex flex-col items-center sm:items-start">
-        <HeroBanner nextRace={undefined} previousRace={previousRace} />
-        <HeroBanner nextRace={nextRace} previousRace={undefined} />
+        <PreviousBanner previousRace={previousRace} />
+        <HeroBanner nextRace={nextRace} />
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full">
           {/* Championship Leader */}
           <div className="w-full">
