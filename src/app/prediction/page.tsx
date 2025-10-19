@@ -1,9 +1,17 @@
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { PredictionService } from "@/service/prediction_service";
+"use client"
 
-export default async function PredictionPage() {
-    const predictionService = new PredictionService();
-    const prediction = await predictionService.getRacePredictions()
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { useEffect, useState } from "react";
+
+export default function PredictionPage() {
+    const [prediction, setPrediction] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetch("https://f1-race-predictor-210638339309.us-central1.run.app/predictions")
+      .then(res => res.json())
+      .then(data => setPrediction(data.results ?? []))
+      .catch(() => setPrediction([]));
+  }, []);
     const hasPredictions = Array.isArray(prediction) && prediction.length > 0;
     const sorted = hasPredictions ? [...prediction].sort((a, b) => (Number(a?.predicted_rank ?? 0) - Number(b?.predicted_rank ?? 0))) : [];
 
