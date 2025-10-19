@@ -1,5 +1,5 @@
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from "@radix-ui/react-navigation-menu";
-import { CalendarDaysIcon, Medal, Trophy } from "lucide-react";
+import { CalendarDaysIcon, Eye, Medal, Trophy } from "lucide-react";
 import Link from "next/link";
 import { navigationMenuTriggerStyle } from "./navigation-menu";
 
@@ -25,6 +25,13 @@ export function Navigation() {
           <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
             <Link href="/race_calendar">
               <CalendarDaysIcon />&nbsp; Race Calendar
+            </Link>
+          </NavigationMenuLink>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+            <Link href="/prediction">
+              <Eye />&nbsp; Race Predictor
             </Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
