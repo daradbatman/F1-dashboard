@@ -1,5 +1,5 @@
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from "@radix-ui/react-navigation-menu";
-import { CalendarDaysIcon, Eye, Medal, Trophy } from "lucide-react";
+import { CalendarDaysIcon, Medal, Trophy } from "lucide-react";
 import Link from "next/link";
 import { navigationMenuTriggerStyle } from "./navigation-menu";
 
