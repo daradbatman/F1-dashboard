@@ -1,6 +1,6 @@
 'use client';
 
-import { Race, RaceWeekend } from "@/types/f1-types";
+import { Race } from "@/types/f1-types";
 import { useEffect, useState } from "react";
 
 interface Props {

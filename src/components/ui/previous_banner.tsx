@@ -1,5 +1,3 @@
-'use client';
-
 import { RaceWeekend } from "@/types/f1-types";
 import Image from "next/image";
 
