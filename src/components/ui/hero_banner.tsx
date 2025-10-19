@@ -64,9 +64,6 @@ export const HeroBanner: React.FC<Props> = ({ nextRace, previousRace }) => {
   const baseClass =
     "w-full bg-gradient-to-r rounded-lg mb-8 flex flex-col items-center px-4 py-6 sm:py-8 text-center";
 
-  // SAFE ACCESS: guard against missing previousRace or empty results
-  const podium = Array.isArray(previousRace?.results) ? previousRace.results : [];
-
   return nextRace && nextRace.schedule ? (
     <div className={`${baseClass} from-red-600 to-black text-white`}>
       <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-2">
