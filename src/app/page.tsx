@@ -13,6 +13,7 @@ export default async function Home() {
   const topConstructorStanding = constructorStandings?.constructors_championship[0];
   const nextRace = nextRaceSchedule?.race?.[0];
   const previousRace = await f1Service.getPreviousRaceResult().then((data) => data?.races);
+  console.log(previousRace)
 
   return (
     <div className="grid grid-rows-[auto_1fr_auto] items-center justify-items-center min-h-screen mt-0 pt-2 pb-12 px-4 gap-0 sm:pt-4 sm:px-8 font-[family-name:var(--font-geist-sans)]">
