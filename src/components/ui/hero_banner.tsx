@@ -92,41 +92,41 @@ export const HeroBanner: React.FC<Props> = ({ nextRace, previousRace }) => {
   ) : (
     <div className={`${baseClass} from-green-600 to-black text-white`}>
       <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-2">
-        Previous Grand Prix: {previousRace?.raceName ?? "N/A"}
+        Previous Grand Prix: {previousRace?.raceName}
       </h1>
       <p className="text-base sm:text-lg mb-2">
-        {previousRace?.circuit?.circuitName ?? "N/A"}, {previousRace?.circuit?.country ?? "N/A"}
+        {previousRace?.circuit?.circuitName}, {previousRace?.circuit?.country}
       </p>
       <div className="flex flex-col items-center gap-1 text-sm sm:text-base">
         <span className="flex items-center gap-1">
-          {podium[0] ? (
-            <>
-              <Image src="/1stPlaceMedal.svg" width={24} height={24} alt="1st" />
-              {podium[0].driver.name} {podium[0].driver.surname}
-            </>
-          ) : (
-            <>Winner: N/A</>
-          )}
+          <Image
+            src="/1stPlaceMedal.svg"
+            width={24}
+            height={24}
+            alt="1st"
+          />
+          {previousRace?.results[0]?.driver?.name}{" "}
+          {previousRace.results[0]?.driver?.surname}
         </span>
         <span className="flex items-center gap-1">
-          {podium[1] ? (
-            <>
-              <Image src="/2ndPlaceMedal.svg" width={24} height={24} alt="2nd" />
-              {podium[1].driver.name} {podium[1].driver.surname}
-            </>
-          ) : (
-            <>2nd: N/A</>
-          )}
+          <Image
+            src="/2ndPlaceMedal.svg"
+            width={24}
+            height={24}
+            alt="2nd"
+          />
+          {previousRace?.results[1]?.driver?.name}{" "}
+          {previousRace?.results[1]?.driver?.surname}
         </span>
         <span className="flex items-center gap-1">
-          {podium[2] ? (
-            <>
-              <Image src="/3rdPlaceMedal.svg" width={24} height={24} alt="3rd" />
-              {podium[2].driver.name} {podium[2].driver.surname}
-            </>
-          ) : (
-            <>3rd: N/A</>
-          )}
+          <Image
+            src="/3rdPlaceMedal.svg"
+            width={24}
+            height={24}
+            alt="3rd"
+          />
+          {previousRace?.results[2]?.driver?.name}{" "}
+          {previousRace?.results[2]?.driver?.surname}
         </span>
       </div>
     </div>
