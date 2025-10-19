@@ -1,6 +1,6 @@
 'use client';
 
-import { Race, RaceResultsResponse, RaceWeekend } from "@/types/f1-types";
+import { Race, RaceWeekend } from "@/types/f1-types";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
