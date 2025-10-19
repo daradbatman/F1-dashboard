@@ -3,6 +3,8 @@ import { DriverCard } from "@/components/drivers/driver";
 import { TeamCard } from "@/components/teams/team";
 import { HeroBanner } from "@/components/ui/hero_banner";
 
+export const dynamic = 'force-dynamic';
+
 export default async function Home() {
   const f1Service = new F1Service();
   const standings = await f1Service.getCurrentDriverStandings();
