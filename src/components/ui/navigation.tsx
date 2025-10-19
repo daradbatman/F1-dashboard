@@ -28,13 +28,6 @@ export function Navigation() {
             </Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
-        <NavigationMenuItem>
-          <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-            <Link href="/prediction">
-              <Eye />&nbsp; Race Predictor
-            </Link>
-          </NavigationMenuLink>
-        </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
   );
