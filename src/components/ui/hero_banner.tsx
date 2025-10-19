@@ -11,6 +11,7 @@ interface Props {
 
 export const HeroBanner: React.FC<Props> = ({ nextRace, previousRace }) => {
   const [countdown, setCountdown] = useState("");
+  const [eventDate, setEventDate] = useState<Date | null>(null);
 
   useEffect(() => {
     if (!nextRace?.schedule) return;
@@ -52,6 +53,7 @@ export const HeroBanner: React.FC<Props> = ({ nextRace, previousRace }) => {
       setCountdown(
         `Next event: ${nextEvent.name} in ${days}d ${hours}h ${minutes}m ${seconds}s`
       );
+      setEventDate(nextEvent.dateTime);
     }
 
     updateCountdown();
@@ -62,6 +64,9 @@ export const HeroBanner: React.FC<Props> = ({ nextRace, previousRace }) => {
   const baseClass =
     "w-full bg-gradient-to-r rounded-lg mb-8 flex flex-col items-center px-4 py-6 sm:py-8 text-center";
 
+  // SAFE ACCESS: guard against missing previousRace or empty results
+  const podium = Array.isArray(previousRace?.results) ? previousRace.results : [];
+
   return nextRace && nextRace.schedule ? (
     <div className={`${baseClass} from-red-600 to-black text-white`}>
       <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-2">
@@ -70,46 +75,58 @@ export const HeroBanner: React.FC<Props> = ({ nextRace, previousRace }) => {
       <p className="text-base sm:text-lg mb-2">
         {nextRace?.circuit?.circuitName}, {nextRace?.circuit?.country}
       </p>
+      <p className="text-sm sm:text-base mb-4">
+        {eventDate
+          ? `Event Date: ${eventDate.toLocaleDateString(undefined, {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+              timeZoneName: "short",
+            })}`
+          : "Event Date: N/A"}
+      </p>
       <p className="text-sm sm:text-base font-mono">{countdown}</p>
     </div>
   ) : (
     <div className={`${baseClass} from-green-600 to-black text-white`}>
       <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-2">
-        Previous Grand Prix: {previousRace?.raceName}
+        Previous Grand Prix: {previousRace?.raceName ?? "N/A"}
       </h1>
       <p className="text-base sm:text-lg mb-2">
-        {previousRace?.circuit?.circuitName}, {previousRace?.circuit?.country}
+        {previousRace?.circuit?.circuitName ?? "N/A"}, {previousRace?.circuit?.country ?? "N/A"}
       </p>
       <div className="flex flex-col items-center gap-1 text-sm sm:text-base">
         <span className="flex items-center gap-1">
-          <Image
-            src="/1stPlaceMedal.svg"
-            width={24}
-            height={24}
-            alt="1st"
-          />
-          {previousRace.results[0].driver.name}{" "}
-          {previousRace.results[0].driver.surname}
+          {podium[0] ? (
+            <>
+              <Image src="/1stPlaceMedal.svg" width={24} height={24} alt="1st" />
+              {podium[0].driver.name} {podium[0].driver.surname}
+            </>
+          ) : (
+            <>Winner: N/A</>
+          )}
         </span>
         <span className="flex items-center gap-1">
-          <Image
-            src="/2ndPlaceMedal.svg"
-            width={24}
-            height={24}
-            alt="2nd"
-          />
-          {previousRace.results[1].driver.name}{" "}
-          {previousRace.results[1].driver.surname}
+          {podium[1] ? (
+            <>
+              <Image src="/2ndPlaceMedal.svg" width={24} height={24} alt="2nd" />
+              {podium[1].driver.name} {podium[1].driver.surname}
+            </>
+          ) : (
+            <>2nd: N/A</>
+          )}
         </span>
         <span className="flex items-center gap-1">
-          <Image
-            src="/3rdPlaceMedal.svg"
-            width={24}
-            height={24}
-            alt="3rd"
-          />
-          {previousRace.results[2].driver.name}{" "}
-          {previousRace.results[2].driver.surname}
+          {podium[2] ? (
+            <>
+              <Image src="/3rdPlaceMedal.svg" width={24} height={24} alt="3rd" />
+              {podium[2].driver.name} {podium[2].driver.surname}
+            </>
+          ) : (
+            <>3rd: N/A</>
+          )}
         </span>
       </div>
     </div>
