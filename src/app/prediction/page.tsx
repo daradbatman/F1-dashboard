@@ -1,19 +1,10 @@
-"use client"
-
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { useEffect, useState } from "react";
+import { F1Service } from "@/service/fi-dev-service";
+export default async function PredictionPage() {
 
-export default function PredictionPage() {
-    const [prediction, setPrediction] = useState<any[]>([]);
-
-  useEffect(() => {
-    fetch("https://f1-race-predictor-210638339309.us-central1.run.app/predictions")
-      .then(res => res.json())
-      .then(data => setPrediction(data.results ?? []))
-      .catch(() => setPrediction([]));
-  }, []);
+  const f1Service = new F1Service();
+  const prediction =  await f1Service.getPredictions();
     const hasPredictions = Array.isArray(prediction) && prediction.length > 0;
-    const sorted = hasPredictions ? [...prediction].sort((a, b) => (Number(a?.predicted_rank ?? 0) - Number(b?.predicted_rank ?? 0))) : [];
 
     return (
         <div className="w-full">
@@ -29,7 +20,7 @@ export default function PredictionPage() {
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {sorted.map((pred: { driver_name: string; driver_number: number; predicted_rank: number }, index: number) => (
+                            {prediction.map((pred: { driver_name: string; driver_number: number; predicted_rank: number }, index: number) => (
                                 <TableRow key={`${pred.driver_number}-${pred.driver_name}-${index}`}>
                                     <TableCell>{pred.driver_name}</TableCell>
                                     <TableCell>{pred.driver_number}</TableCell>
@@ -60,6 +51,7 @@ export default function PredictionPage() {
 
             <footer>
                 <div>
+                    Predictions are subject to change overtime. 
                     I hope to turn this into a chat bot to give more predictions beyond race results. This prediction was made possible with data from the openf1 api and XGBoosts ranker model to generate the prediction.
                 </div>
             </footer>
