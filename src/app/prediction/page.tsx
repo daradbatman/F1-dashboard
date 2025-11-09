@@ -4,7 +4,7 @@ export default async function PredictionPage() {
 
   const f1Service = new F1Service();
   const prediction =  await f1Service.getPredictions();
-    const hasPredictions = Array.isArray(prediction) && prediction.length > 0;
+  const hasPredictions = Array.isArray(prediction) && prediction.length > 0;
 
     return (
         <div className="w-full">

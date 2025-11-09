@@ -212,7 +212,7 @@ export class F1Service {
     }
 
     async getPredictions(): Promise<any[] | null> {
-        const response = await fetch("https://f1-race-predictor-210638339309.us-central1.run.app/predictions")
+        const response = await fetch("https://f1-race-predictor-210638339309.us-central1.run.app/predictions", {cache: 'no-store'})
         if (!response.ok) {
             return null;
         }
