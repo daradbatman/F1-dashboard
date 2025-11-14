@@ -16,7 +16,7 @@ const currentYear = new Date().getFullYear();
 export class F1Service {
     async getCurrentDrivers(): Promise<DriversResponse | null> {
         const response = await fetch(`${BASE_URL}/${currentYear}/drivers`, {
-            next: { revalidate: 86400}
+            next: { revalidate: 3600}
         });
         if (!response.ok) {
             return null;
@@ -27,7 +27,7 @@ export class F1Service {
 
     async getCurrentDriverDetails(driverId: string): Promise<DriverDetailResponse | null> {
         const response = await fetch(`${BASE_URL}/${currentYear}/drivers/${driverId}`, {
-            next: { revalidate: 86400}
+            next: { revalidate: 3600}
         });
         if (!response.ok) {
             return null;
@@ -38,7 +38,7 @@ export class F1Service {
 
     async getCurrentTeams(): Promise<TeamsResponse | null> {
         const response = await fetch(`${BASE_URL}/${currentYear}/teams`, {
-            next: { revalidate: 86400}
+            next: { revalidate: 3600}
         });
         if (!response.ok) {
             return null;
@@ -49,7 +49,7 @@ export class F1Service {
 
     async getCurrentTeamsDrivers(teamId: string): Promise<TeamDriversResponse | null> {
         const response = await fetch(`${BASE_URL}/${currentYear}/teams/${teamId}/drivers`, {
-            next: { revalidate: 86400}
+            next: { revalidate: 3600}
         });
         if (!response.ok) {
             return null;
@@ -60,7 +60,7 @@ export class F1Service {
 
     async getCurrentDriverStandings(): Promise<ChampionshipStandingResponse | null> {
         const response = await fetch(`${BASE_URL}/${currentYear}/drivers-championship`, {
-            next: { revalidate: 86400}
+            next: { revalidate: 3600}
         });
         if (!response.ok) {
             return null;
@@ -71,7 +71,7 @@ export class F1Service {
 
     async getCurrentConstructorStandings(): Promise<ConstructorStandingResponse | null> {
         const response = await fetch(`${BASE_URL}/${currentYear}/constructors-championship`, {
-            next: { revalidate: 86400}
+            next: { revalidate: 3600}
         });
         if (!response.ok) {
             return null;
@@ -82,7 +82,7 @@ export class F1Service {
 
     async getNextRaceSchedule(): Promise<RaceScheduleResponse | null> {
         const response = await fetch(`${BASE_URL}/current/next`, {
-            next: { revalidate: 86400}
+            next: { revalidate: 3600}
         });
         if (!response.ok) {
             return null;
@@ -93,7 +93,7 @@ export class F1Service {
 
     async getPreviousRaceResult(): Promise<RaceResultsResponse | null> {
         const response = await fetch(`${BASE_URL}/current/last/race`, {
-            next: { revalidate: 86400}
+            next: { revalidate: 3600}
         });
         if (!response.ok) {            
             return null;
@@ -103,7 +103,7 @@ export class F1Service {
 
     async getConstructorStandingsByYear(year: number): Promise<ConstructorStandingResponse | null> {
         const response = await fetch(`${BASE_URL}/${year}/constructors-championship`, {
-            next: { revalidate: 86400}
+            next: { revalidate: 3600}
         });
         if (!response.ok) {
             return null;
@@ -114,7 +114,7 @@ export class F1Service {
 
     async getDriverStandingsByYear(year: number): Promise<ChampionshipStandingResponse | null> {
         const response = await fetch(`${BASE_URL}/${year}/drivers-championship`, {
-            next: { revalidate: 86400}
+            next: { revalidate: 3600}
         });
         if (!response.ok) {
             return null;
@@ -125,7 +125,7 @@ export class F1Service {
 
     async getRaceScheduleByYear(year: number): Promise<SeasonCalendarResponse | null> {
         const response = await fetch(`${BASE_URL}/${year}`, {
-            next: { revalidate: 86400}
+            next: { revalidate: 3600}
         });
         if (!response.ok) {
             return null;
@@ -136,7 +136,7 @@ export class F1Service {
 
     async getRaceResultsByYear(year: number, round: number): Promise<RaceResultsResponse | null> {
         const response = await fetch(`${BASE_URL}/${year}/${round}/race`, {
-            next: { revalidate: 86400}
+            next: { revalidate: 3600}
         });
         if (!response.ok) {
             return null;
@@ -147,7 +147,7 @@ export class F1Service {
 
     async getFp1ResultsByYear(year: number, round: number): Promise<RaceResultsResponse | null> {
         const response = await fetch(`${BASE_URL}/${year}/${round}/fp1`, {
-            next: { revalidate: 86400}
+            next: { revalidate: 3600}
         });
         if (!response.ok) {
             return null;
@@ -158,7 +158,7 @@ export class F1Service {
 
     async getFp2ResultsByYear(year: number, round: number): Promise<RaceResultsResponse | null> {
         const response = await fetch(`${BASE_URL}/${year}/${round}/fp2`, {
-            next: { revalidate: 86400}
+            next: { revalidate: 3600}
         });
         if (!response.ok) {
             return null;
@@ -169,7 +169,7 @@ export class F1Service {
 
     async getFp3ResultsByYear(year: number, round: number): Promise<RaceResultsResponse | null> {
         const response = await fetch(`${BASE_URL}/${year}/${round}/fp3`, {
-            next: { revalidate: 86400}
+            next: { revalidate: 3600}
         });
         if (!response.ok) {
             return null;
@@ -180,7 +180,7 @@ export class F1Service {
 
     async getQualyResultsByYear(year: number, round: number): Promise<RaceResultsResponse | null> {
         const response = await fetch(`${BASE_URL}/${year}/${round}/qualy`, {
-            next: { revalidate: 86400}
+            next: { revalidate: 3600}
         });
         if (!response.ok) {
             return null;
@@ -191,7 +191,7 @@ export class F1Service {
 
     async getSprintRaceResultsByYear(year: number, round: number): Promise<RaceResultsResponse | null> {
         const response = await fetch(`${BASE_URL}/${year}/${round}/sprint/race`, {
-            next: { revalidate: 86400}
+            next: { revalidate: 3600}
         });
         if (!response.ok) {
             return null;
@@ -202,7 +202,7 @@ export class F1Service {
 
     async getSprintQualyResultsByYear(year: number, round: number): Promise<RaceResultsResponse | null> {
         const response = await fetch(`${BASE_URL}/${year}/${round}/sprint/qualy`, {
-            next: { revalidate: 86400}
+            next: { revalidate: 3600}
         });
         if (!response.ok) {
             return null;
