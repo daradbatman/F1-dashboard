@@ -58,15 +58,16 @@ export function findNextEvent(schedule: Schedule) {
 export function getColorFromTeamId(teamId: string): string {
   const colors: Record<string, string> = {
     'red_bull': 'royalblue',
-    'mercedes': 'lightslategrey',
+    'mercedes': 'darkturquoise',
     'ferrari': 'red',
     'mclaren': 'orange',
     'alpine': 'dodgerblue',
     'aston_martin': 'seagreen',
     'haas': 'indianred',
-    'sauber': 'lawngreen',
+    'audi': 'firebrick',
     'williams': 'lightskyblue',
     'rb': 'cornflowerblue',
+    'cadillac': 'lightslategray',
     // Add more teams and their colors as needed
   };
   return colors[teamId] || 'gray'; // Default color if teamId not found
