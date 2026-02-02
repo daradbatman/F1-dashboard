@@ -64,10 +64,10 @@ export function getColorFromTeamId(teamId: string): string {
     'alpine': 'dodgerblue',
     'aston_martin': 'seagreen',
     'haas': 'indianred',
-    'audi': 'firebrick',
+    'audi': '#FF2D00',
     'williams': 'lightskyblue',
     'rb': 'cornflowerblue',
-    'cadillac': 'lightslategray',
+    'cadillac': '#C9B65A',
     // Add more teams and their colors as needed
   };
   return colors[teamId] || 'gray'; // Default color if teamId not found
