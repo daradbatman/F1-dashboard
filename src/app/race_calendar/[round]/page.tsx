@@ -3,12 +3,25 @@ import { Button } from "@/components/ui/button";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { F1Service } from "@/service/fi-dev-service";
+import { Circuit } from "@/types/f1-types";
 import { ArrowDown } from "lucide-react";
 import Link from "next/link";
 
-export default async function RaceDetail(props: { params: Promise<{ round: string }> }) {
+export default async function RaceDetail(props: { params: Promise<{ round: string }>, searchParams: Promise<Record<string, string>> }) {
     const params = await props.params;
+    const searchParams = await props.searchParams;
     const round = Number(params.round);
+    
+    // Parse circuit data from search parameters
+    let circuit: Circuit | undefined;
+    try {
+        const circuitData = searchParams.circuit;
+        if (circuitData) {
+            circuit = JSON.parse(decodeURIComponent(circuitData));
+        }
+    } catch (e) {
+        console.log("Could not parse circuit from searchParams");
+    }
     const year = new Date().getFullYear();
     const f1Service = new F1Service();
     const raceResult = await f1Service.getRaceResultsByYear(year, round);
@@ -30,7 +43,6 @@ export default async function RaceDetail(props: { params: Promise<{ round: strin
     ];
 
     const firstValidResult = allResults.find(result => result !== null && result !== undefined);
-    const circuit = firstValidResult?.races.circuit;
     const raceName = firstValidResult?.races.raceName;
 
 

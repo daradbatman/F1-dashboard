@@ -46,6 +46,7 @@ export default async function RaceCalendar() {
     const dt = getRaceDateTime(race);
     return dt > now && race.round !== nextRace?.round;
   });
+  console.log(upcomingRaces);
 
   return (
     <div className="px-4 sm:px-8">
@@ -57,7 +58,7 @@ export default async function RaceCalendar() {
       {nextRace && (
         <div className="mb-8">
           <h2 className="text-xl font-bold mb-2 text-primary">Next Race</h2>
-          <Link href={`/race_calendar/${nextRace.round}`}>
+          <Link href={`/race_calendar/${nextRace.round}?circuit=${encodeURIComponent(JSON.stringify(nextRace.circuit))}`}>
             <Card className="hover:shadow-lg hover:bg-muted transition duration-200 ease-in-out rounded-lg">
               <CardHeader>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-2 sm:gap-4 items-start sm:items-center">
@@ -90,7 +91,7 @@ export default async function RaceCalendar() {
       {previousRace && (
         <div className="mb-8">
           <h2 className="text-xl font-bold mb-2 text-primary">Most Recent Race</h2>
-          <Link href={`/race_calendar/${previousRace.round}`}>
+          <Link href={`/race_calendar/${previousRace.round}?circuit=${encodeURIComponent(JSON.stringify(previousRace.circuit))}`}>
             <Card className="hover:shadow-lg hover:bg-muted transition duration-200 ease-in-out rounded-lg">
               <CardHeader>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-2 sm:gap-4 items-start sm:items-center">
@@ -168,7 +169,7 @@ export default async function RaceCalendar() {
           <h2 className="text-xl font-bold mb-2">Past Races</h2>
           <div className="grid gap-6">
             {pastRaces.map((race) => (
-              <Link href={`/race_calendar/${race.round}`} key={race.round}>
+              <Link href={`/race_calendar/${race.round}?circuit=${encodeURIComponent(JSON.stringify(race.circuit))}`} key={race.round}>
                 <Card className="hover:shadow-lg hover:bg-muted transition duration-200 ease-in-out rounded-lg">
                   <CardHeader>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-2 sm:gap-4 items-start sm:items-center">
@@ -248,7 +249,7 @@ export default async function RaceCalendar() {
           <h2 className="text-xl font-bold mb-2">Upcoming Races</h2>
           <div className="grid gap-6">
             {upcomingRaces.map((race) => (
-              <Link href={`/race_calendar/${race.round}`} key={race.round}>
+              <Link href={`/race_calendar/${race.round}?circuit=${encodeURIComponent(JSON.stringify(race.circuit))}`} key={race.round}>
                 <Card className="hover:shadow-lg hover:bg-muted transition duration-200 ease-in-out rounded-lg">
                   <CardHeader>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-2 sm:gap-4 items-start sm:items-center">
