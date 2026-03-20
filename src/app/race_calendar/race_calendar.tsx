@@ -46,7 +46,6 @@ export default async function RaceCalendar() {
     const dt = getRaceDateTime(race);
     return dt > now && race.round !== nextRace?.round;
   });
-  console.log(upcomingRaces);
 
   return (
     <div className="px-4 sm:px-8">
