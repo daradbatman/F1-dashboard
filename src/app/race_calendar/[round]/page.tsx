@@ -20,7 +20,7 @@ export default async function RaceDetail(props: { params: Promise<{ round: strin
             circuit = JSON.parse(decodeURIComponent(circuitData));
         }
     } catch (e) {
-        console.log("Could not parse circuit from searchParams");
+        console.log("Could not parse circuit from searchParams", e);
     }
     const year = new Date().getFullYear();
     const f1Service = new F1Service();
