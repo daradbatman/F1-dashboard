@@ -17,21 +17,14 @@ import {
 } from "@/components/ui/table";
 import { Meeting, Session } from "@/types/f1-types-v2";
 import Image from "next/image";
+import { unstable_cache } from "next/cache";
 
 const byStart = (a: Session, b: Session) =>
   new Date(a.date_start).getTime() - new Date(b.date_start).getTime();
 
 async function getBannerData(year: number) {
-  let meetings: Meeting[] = [];
-  let sessions: Session[] = [];
-  try {
-    [meetings, sessions] = await Promise.all([
-      fetchMeetings(year),
-      fetchSessionsByYear(year),
-    ]);
-  } catch {
-    return { nextMeeting: undefined, nextSession: undefined, prevMeeting: undefined, podium: [] as PodiumEntry[] };
-  }
+  const meetings = await fetchMeetings(year);
+  const sessions = await fetchSessionsByYear(year);
 
   // Skip pre-season testing etc.
   const grandPrix = meetings.filter((m) => m.meeting_name.includes("Grand Prix"));
@@ -54,10 +47,8 @@ async function getBannerData(year: number) {
   let podium: PodiumEntry[] = [];
   if (prevRaceSession) {
     try {
-      const [results, drivers] = await Promise.all([
-        fetchSessionResults(prevRaceSession.session_key),
-        fetchDrivers(prevRaceSession.session_key),
-      ]);
+      const results = await fetchSessionResults(prevRaceSession.session_key);
+      const drivers = await fetchDrivers(prevRaceSession.session_key);
       console.log("results", results, "drivers", drivers);
       const nameByNumber = new Map(drivers.map((d) => [d.driver_number, d.full_name]));
       podium = results
@@ -75,14 +66,25 @@ async function getBannerData(year: number) {
   return { nextMeeting, nextSession, prevMeeting, podium };
 }
 
+const getCachedBannerData = unstable_cache(getBannerData, ["banner-data"], {
+    revalidate: 300,
+  });
+
+export const revalidate = 300;
+
 export default async function Home() {
   const f1Service = new F1Service();
   const currentYear = new Date().getFullYear();
 
-  const [standings, constructorStandings, banners] = await Promise.all([
+  const empty = { nextMeeting: undefined, nextSession: undefined, prevMeeting: undefined, podium: [] as PodiumEntry[] };
+  const banners = await getCachedBannerData(currentYear).catch((err) => {
+    console.error("OpenF1 banner data failed:", err);
+    return empty;
+  });
+
+  const [standings, constructorStandings] = await Promise.all([
     f1Service.getCurrentDriverStandings(),
     f1Service.getCurrentConstructorStandings(),
-    getBannerData(currentYear),
   ]);
 
   const { nextMeeting, nextSession, prevMeeting, podium } = banners;

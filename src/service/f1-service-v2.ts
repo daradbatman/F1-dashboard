@@ -3,13 +3,20 @@ import { Driver, Meeting, Session, SessionResult } from "@/types/f1-types-v2";
 const BASE_URL = 'https://api.openf1.org/v1';
 
 // Cache for 5 minutes so every page load doesn't hit OpenF1 (it is rate limited)
-async function getJson<T>(path: string, errorMessage: string): Promise<T> {
-    const response = await fetch(`${BASE_URL}${path}`, { next: { revalidate: 300 } });
-    if (!response.ok) {
-        console.error(`Error fetching ${path}: ${response.status} ${response.statusText}`);
-        throw new Error(errorMessage);
+async function getJson<T>(path: string, errorMessage: string, retries = 2): Promise<T> {
+    for (let attempt = 0; ; attempt++) {
+        // Caching happens one level up (unstable_cache), so don't cache individual calls here
+        const response = await fetch(`${BASE_URL}${path}`, { cache: 'no-store' });
+        if (response.ok) return response.json();
+
+        if (response.status === 429 && attempt < retries) {
+            const retryAfter = Number(response.headers.get('retry-after'));
+            const delayMs = retryAfter > 0 ? retryAfter * 1000 : 1000 * 2 ** attempt;
+            await new Promise((resolve) => setTimeout(resolve, delayMs));
+            continue;
+        }
+        throw new Error(`${errorMessage} (HTTP ${response.status})`);
     }
-    return response.json();
 }
 
 export async function fetchMeetings(year: number = new Date().getFullYear()): Promise<Meeting[]> {
