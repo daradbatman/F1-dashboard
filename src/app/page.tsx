@@ -15,7 +15,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Meeting, Session } from "@/types/f1-types-v2";
+import { Session } from "@/types/f1-types-v2";
 import Image from "next/image";
 import { unstable_cache } from "next/cache";
 
