@@ -1,6 +1,12 @@
 import { F1Service } from "@/service/fi-dev-service";
+import {
+  fetchDrivers,
+  fetchMeetings,
+  fetchSessionResults,
+  fetchSessionsByYear,
+} from "@/service/f1-service-v2";
 import { HeroBanner } from "@/components/ui/hero_banner";
-import { PreviousBanner } from "@/components/ui/previous_banner";
+import { PodiumEntry, PreviousBanner } from "@/components/ui/previous_banner";
 import {
   Table,
   TableBody,
@@ -9,63 +15,77 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Race, RaceWeekend } from "@/types/f1-types";
+import { Meeting, Session } from "@/types/f1-types-v2";
 import Image from "next/image";
 
-function getNextEventDate(race: Race): Date | null {
-  if (!race.schedule) return null;
+const byStart = (a: Session, b: Session) =>
+  new Date(a.date_start).getTime() - new Date(b.date_start).getTime();
 
-  const events: { name: string; date: Date }[] = [];
+async function getBannerData(year: number) {
+  let meetings: Meeting[] = [];
+  let sessions: Session[] = [];
+  try {
+    [meetings, sessions] = await Promise.all([
+      fetchMeetings(year),
+      fetchSessionsByYear(year),
+    ]);
+  } catch {
+    return { nextMeeting: undefined, nextSession: undefined, prevMeeting: undefined, podium: [] as PodiumEntry[] };
+  }
 
-  for (const [eventName, event] of Object.entries(race.schedule)) {
-    if (event?.date && event?.time) {
-      const [year, month, day] = event.date.split("-");
-      const [hour, minute, second] = event.time.replace("Z", "").split(":");
-      const isoString = `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}T${hour.padStart(2, "0")}:${minute.padStart(2, "0")}:${(second || "00").padStart(2, "0")}Z`;
-      const dateTime = new Date(isoString);
-      events.push({ name: eventName, date: dateTime });
+  // Skip pre-season testing etc.
+  const grandPrix = meetings.filter((m) => m.meeting_name.includes("Grand Prix"));
+  const gpKeys = new Set(grandPrix.map((m) => m.meeting_key));
+  const gpSessions = sessions.filter((s) => gpKeys.has(s.meeting_key)).sort(byStart);
+
+  const now = Date.now();
+
+  // Next event: the first session (FP1, Quali, Sprint, Race...) that hasn't started yet
+  const nextSession = gpSessions.find((s) => new Date(s.date_start).getTime() > now);
+  const nextMeeting = grandPrix.find((m) => m.meeting_key === nextSession?.meeting_key);
+
+  // Previous race: the most recent "Race" session that has finished
+  const prevRaceSession = [...gpSessions]
+    .reverse()
+    .find((s) => s.session_name === "Race" && new Date(s.date_end).getTime() < now);
+  const prevMeeting = grandPrix.find((m) => m.meeting_key === prevRaceSession?.meeting_key);
+  console.log("prevRaceSession", prevRaceSession, "prevMeeting", prevMeeting);
+
+  let podium: PodiumEntry[] = [];
+  if (prevRaceSession) {
+    try {
+      const [results, drivers] = await Promise.all([
+        fetchSessionResults(prevRaceSession.session_key),
+        fetchDrivers(prevRaceSession.session_key),
+      ]);
+      console.log("results", results, "drivers", drivers);
+      const nameByNumber = new Map(drivers.map((d) => [d.driver_number, d.full_name]));
+      podium = results
+        .filter((r) => r.position != null && r.position <= 3)
+        .sort((a, b) => a.position - b.position)
+        .map((r) => ({
+          position: r.position,
+          name: nameByNumber.get(r.driver_number) ?? `#${r.driver_number}`,
+        }));
+    } catch {
+      console.error("Failed to fetch podium data for previous race session", prevRaceSession.session_key);
     }
   }
 
-  return events.length > 0 ? new Date(Math.min(...events.map(e => e.date.getTime()))) : null;
-}
-
-function getNextRaceFromSchedule(races: Race[]): Race | undefined {
-  const now = new Date();
-  const futureRaces = races
-    .map(race => ({ race, eventDate: getNextEventDate(race) }))
-    .filter(({ eventDate }) => eventDate && eventDate > now)
-    .sort((a, b) => (a.eventDate?.getTime() || 0) - (b.eventDate?.getTime() || 0));
-
-  return futureRaces.length > 0 ? futureRaces[0].race : undefined;
-}
-
-function getPreviousRaceFromSchedule(races: Race[]): Race | undefined {
-  const now = new Date();
-  const pastRaces = races
-    .map(race => ({ race, raceDate: race.schedule?.race?.date ? new Date(race.schedule.race.date + "T" + race.schedule.race.time) : null }))
-    .filter(({ raceDate }) => raceDate && raceDate < now)
-    .sort((a, b) => (b.raceDate?.getTime() || 0) - (a.raceDate?.getTime() || 0));
-
-  return pastRaces.length > 0 ? pastRaces[0].race : undefined;
+  return { nextMeeting, nextSession, prevMeeting, podium };
 }
 
 export default async function Home() {
   const f1Service = new F1Service();
   const currentYear = new Date().getFullYear();
-  
-  const standings = await f1Service.getCurrentDriverStandings();
-  const constructorStandings = await f1Service.getCurrentConstructorStandings();
-  const seasonSchedule = await f1Service.getRaceScheduleByYear(currentYear);
 
-  const nextRace = seasonSchedule?.races ? getNextRaceFromSchedule(seasonSchedule.races) : undefined;
-  const previousRaceData = seasonSchedule?.races ? getPreviousRaceFromSchedule(seasonSchedule.races) : undefined;
+  const [standings, constructorStandings, banners] = await Promise.all([
+    f1Service.getCurrentDriverStandings(),
+    f1Service.getCurrentConstructorStandings(),
+    getBannerData(currentYear),
+  ]);
 
-  let previousRace: RaceWeekend | undefined = undefined;
-  if (previousRaceData) {
-    const results = await f1Service.getRaceResultsByYear(currentYear, previousRaceData.round);
-    previousRace = results?.races;
-  }
+  const { nextMeeting, nextSession, prevMeeting, podium } = banners;
 
   const topThreeDrivers = standings?.drivers_championship.slice(0, 3) || [];
   const topThreeConstructors = constructorStandings?.constructors_championship.slice(0, 3) || [];
@@ -73,9 +93,9 @@ export default async function Home() {
   return (
     <div className="grid grid-rows-[auto_1fr_auto] items-center justify-items-center min-h-screen mt-0 pt-2 pb-12 px-2 gap-0 sm:pt-4 sm:px-8 font-[family-name:var(--font-geist-sans)]">
       <div className="row-start-1 w-full flex flex-col items-center sm:items-start">
-        <PreviousBanner previousRace={previousRace} />
-        <HeroBanner nextRace={nextRace} />
-        
+        <PreviousBanner meeting={prevMeeting} podium={podium} />
+        <HeroBanner meeting={nextMeeting} nextSession={nextSession} />
+
         {/* Top 3 Drivers Table */}
         <div className="w-full mb-8">
           <h2 className="text-xl sm:text-2xl font-bold mb-4">Top 3 Drivers</h2>
